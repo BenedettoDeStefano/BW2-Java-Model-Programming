@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -18,6 +20,9 @@ import lombok.Setter;
 @Getter
 @Entity
 public class Biglietto extends DocumentoViaggio {
+	@Id
+	@GeneratedValue
+	Long id;
 	@Enumerated(EnumType.STRING)
 	TipoBiglietto tipoBiglietto;
 	Boolean vidimato;
