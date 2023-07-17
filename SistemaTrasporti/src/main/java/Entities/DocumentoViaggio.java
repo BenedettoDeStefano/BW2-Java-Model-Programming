@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public abstract class DocumentoViaggio {
 	@Id
 	@GeneratedValue
