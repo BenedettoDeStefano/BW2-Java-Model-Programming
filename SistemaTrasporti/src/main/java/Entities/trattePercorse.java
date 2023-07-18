@@ -17,24 +17,28 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class trattePercorse {
-	
+
 	@Id
 	@GeneratedValue
 	private Long codiceTratta;
-	
+
 	private Long codiceMezzo;
 	private Long codiceStorico;
 	private Long tempoEffettivo;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "codice_mezzo")
+	private Mezzo mezzo;
+
 	@ManyToOne
 	@JoinColumn(name = "codice_tratta")
 	private Tratta tratta;
-	
+
 	public trattePercorse(Long codiceMezzo, Long codiceStorico, Long tempoEffettivo) {
 		super();
 		this.codiceMezzo = codiceMezzo;
 		this.codiceStorico = codiceStorico;
 		this.tempoEffettivo = tempoEffettivo;
 	}
-	
+
 }
