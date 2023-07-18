@@ -31,14 +31,19 @@ public class Biglietto extends DocumentoViaggio {
 	@ManyToOne
 	@JoinColumn(name = "rivenditore_id")
 	RivenditoreAutorizzato rivenditore;
+	
+	@ManyToOne
+	   @JoinColumn(name = "utente_id")
+	   private Utente utente;
 
 	public Biglietto(String codiceUnivoco, LocalDate dataEmissione, Double prezzo, TipoBiglietto tipoBiglietto,
-			Boolean vidimato, DistributoreAutomatico distributore, RivenditoreAutorizzato rivenditore) {
+			Boolean vidimato, DistributoreAutomatico distributore, RivenditoreAutorizzato rivenditore, Utente utente) {
 		super(codiceUnivoco, dataEmissione, prezzo);
 		this.tipoBiglietto = tipoBiglietto;
 		this.vidimato = vidimato;
 		this.distributore = distributore;
 		this.rivenditore = rivenditore;
+		this.utente = utente;
 	}
 
 	@Override

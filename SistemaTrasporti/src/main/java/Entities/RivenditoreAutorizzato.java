@@ -20,13 +20,10 @@ public class RivenditoreAutorizzato {
 	@GeneratedValue
 	Long id;
 	
-	String posizione;
-	Boolean attivo;
+	String indirizzo;
 	
-	public RivenditoreAutorizzato(String posizione, Boolean attivo) {
-		super();
-		this.posizione = posizione;
-		this.attivo = attivo;
+	public RivenditoreAutorizzato(String indirizzo) {
+		this.indirizzo = indirizzo;
 	}
 	
 	
