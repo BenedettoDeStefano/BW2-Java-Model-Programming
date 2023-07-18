@@ -1,5 +1,7 @@
 package Entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -7,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 
 import Enum.StatoMezzo;
 import Enum.TipoMezzo;
@@ -38,12 +40,16 @@ public class Mezzo {
 	@ManyToOne
 	@JoinColumn(name = "tratta_id")
 	Tratta tratta;
+	
+	@OneToMany(mappedBy = "mezzo")
+	   private List<Biglietto> biglietti;
 
-	public Mezzo(TipoMezzo tipo, StatoMezzo stato, int capienza, Tratta tratta) {
+	public Mezzo(TipoMezzo tipo, StatoMezzo stato, int capienza, Tratta tratta, List<Biglietto> biglietti) {
 		this.tipo = tipo;
 		this.stato = stato;
 		this.capienza = capienza;
 		this.tratta = tratta;
+		this.biglietti = biglietti;
 	}
 	
 	
