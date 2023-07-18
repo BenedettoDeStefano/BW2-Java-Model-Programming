@@ -24,38 +24,37 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Mezzo {
-	
+
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	@Enumerated(EnumType.STRING)
 	private TipoMezzo tipo;
-	
+
 	@Enumerated(EnumType.STRING)
 	private StatoMezzo stato;
-	
+
 	private int capienza;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "tratta_id")
 	private Tratta tratta;
-	
+
 	@OneToMany(mappedBy = "mezzo")
-	private List<Biglietto> biglietti;
-	
+	private List<trattePercorse> trattePercorse;
+
 	@ManyToOne
 	@JoinColumn(name = "officina_id")
 	private Officina officina;
 
-	public Mezzo(TipoMezzo tipo, StatoMezzo stato, int capienza, Tratta tratta, List<Biglietto> biglietti, Officina officina) {
+	public Mezzo(TipoMezzo tipo, StatoMezzo stato, int capienza, Tratta tratta, List<trattePercorse> trattePercorse,
+			Officina officina) {
 		this.tipo = tipo;
 		this.stato = stato;
 		this.capienza = capienza;
 		this.tratta = tratta;
-		this.biglietti = biglietti;
+		this.trattePercorse = trattePercorse;
 		this.officina = officina;
 	}
-	
-	
 }
