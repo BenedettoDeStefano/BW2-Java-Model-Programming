@@ -27,29 +27,34 @@ public class Mezzo {
 	
 	@Id
 	@GeneratedValue
-	Long id;
+	private Long id;
 	
 	@Enumerated(EnumType.STRING)
-	TipoMezzo tipo;
+	private TipoMezzo tipo;
 	
 	@Enumerated(EnumType.STRING)
-	StatoMezzo stato;
+	private StatoMezzo stato;
 	
-	int capienza;
+	private int capienza;
 	
 	@ManyToOne
 	@JoinColumn(name = "tratta_id")
-	Tratta tratta;
+	private Tratta tratta;
 	
 	@OneToMany(mappedBy = "mezzo")
-	   private List<Biglietto> biglietti;
+	private List<Biglietto> biglietti;
+	
+	@ManyToOne
+	@JoinColumn(name = "officina_id")
+	private Officina officina;
 
-	public Mezzo(TipoMezzo tipo, StatoMezzo stato, int capienza, Tratta tratta, List<Biglietto> biglietti) {
+	public Mezzo(TipoMezzo tipo, StatoMezzo stato, int capienza, Tratta tratta, List<Biglietto> biglietti, Officina officina) {
 		this.tipo = tipo;
 		this.stato = stato;
 		this.capienza = capienza;
 		this.tratta = tratta;
 		this.biglietti = biglietti;
+		this.officina = officina;
 	}
 	
 	

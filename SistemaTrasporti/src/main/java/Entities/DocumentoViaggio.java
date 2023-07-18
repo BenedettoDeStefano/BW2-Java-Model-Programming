@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 public abstract class DocumentoViaggio {
 	@Id
 	@GeneratedValue
-	Long id;
-	String codiceUnivoco;
-	LocalDate dataEmissione;
-	Double prezzo;
+	private Long id;
+	private String codiceUnivoco;
+	private LocalDate dataEmissione;
+	private Double prezzo;
 
 	public DocumentoViaggio(String codiceUnivoco, LocalDate dataEmissione, Double prezzo) {
 		super();

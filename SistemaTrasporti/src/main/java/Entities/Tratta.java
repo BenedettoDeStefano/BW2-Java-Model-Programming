@@ -1,12 +1,12 @@
 package Entities;
 
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import Enum.StatoMezzo;
-import Enum.TipoMezzo;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,13 +22,13 @@ public class Tratta {
 	
 	@Id
 	@GeneratedValue
-	Long id;
+	private Long id;
 	
-	String zonaPartenza;
-	String capolinea;
-	int tempoMediaPercorrenza;
-	int numeroVoltePercorso;
-	int tempoEffettivoPercorrenza;
+	private String zonaPartenza;
+	private String capolinea;
+	private int tempoMediaPercorrenza;
+	private int numeroVoltePercorso;
+	private int tempoEffettivoPercorrenza;
 	
 	public Tratta(String zonaPartenza, String capolinea, int tempoMediaPercorrenza, int numeroVoltePercorso,
 			int tempoEffettivoPercorrenza) {

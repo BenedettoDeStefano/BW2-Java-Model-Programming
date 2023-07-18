@@ -22,15 +22,15 @@ import lombok.Setter;
 public class Biglietto extends DocumentoViaggio {
 	@Id
 	@GeneratedValue
-	Long id;
+	private Long id;
 	@Enumerated(EnumType.STRING)
 	TipoBiglietto tipoBiglietto;
-	Boolean vidimato;
+	private Boolean vidimato;
 	@ManyToOne
-	DistributoreAutomatico distributore;
+	private DistributoreAutomatico distributore;
 	@ManyToOne
 	@JoinColumn(name = "rivenditore_id")
-	RivenditoreAutorizzato rivenditore;
+	private RivenditoreAutorizzato rivenditore;
 	
 	@ManyToOne
 	   @JoinColumn(name = "utente_id")
@@ -53,10 +53,12 @@ public class Biglietto extends DocumentoViaggio {
 
 	@Override
 	public String toString() {
-		return "Biglietto [id=" + id + ", tipoBiglietto=" + tipoBiglietto + ", vidimato=" + vidimato + ", distributore="
-				+ distributore + ", rivenditore=" + rivenditore + ", utente=" + utente + ", mezzo=" + mezzo
-				+ ", codiceUnivoco=" + codiceUnivoco + ", dataEmissione=" + dataEmissione + ", prezzo=" + prezzo + "]";
+		return "Biglietto [tipoBiglietto=" + tipoBiglietto + ", vidimato=" + vidimato + ", distributore=" + distributore
+				+ ", rivenditore=" + rivenditore + ", utente=" + utente + ", mezzo=" + mezzo + ", toString()="
+				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
+
+	
 
 	
 	

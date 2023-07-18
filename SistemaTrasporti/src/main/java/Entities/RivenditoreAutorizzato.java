@@ -18,9 +18,9 @@ public class RivenditoreAutorizzato {
 	
 	@Id
 	@GeneratedValue
-	Long id;
+	private Long id;
 	
-	String indirizzo;
+	private String indirizzo;
 	
 	public RivenditoreAutorizzato(String indirizzo) {
 		this.indirizzo = indirizzo;

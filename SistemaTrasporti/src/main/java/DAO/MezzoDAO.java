@@ -37,12 +37,4 @@ public class MezzoDAO {
      	}
      }
 
-     public int acquisisciNumeroVidimatiMezzo(Mezzo mezzo) {
- 	    int numeroMezziVidimati = em.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.mezzoDiTrasporto = :mezzo AND b.vidimato = true", Long.class)
- 	            .setParameter("mezzo", mezzo)
- 	            .getSingleResult()
- 	            .intValue();
- 	    log.info("Numero mezzi vidimati: " + numeroMezziVidimati);
- 	    return numeroMezziVidimati;
- 	}
 }

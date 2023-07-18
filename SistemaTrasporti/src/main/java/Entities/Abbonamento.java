@@ -22,17 +22,17 @@ import lombok.Setter;
 public class Abbonamento extends DocumentoViaggio {
 	@Id
 	@GeneratedValue
-	Long id;
+	private Long id;
 	@Enumerated(EnumType.STRING)
-	TipoAbbonamento tipo;
-	LocalDate dataScadenza;
-	Boolean vidimato;
+	private TipoAbbonamento tipo;
+	private LocalDate dataScadenza;
+	private Boolean vidimato;
 	@ManyToOne
 	@JoinColumn(name = "tessera_id")
-	Tessera tessera;
+	private Tessera tessera;
 	@ManyToOne
 	@JoinColumn(name = "rivenditore_id")
-	RivenditoreAutorizzato rivenditore;
+	private RivenditoreAutorizzato rivenditore;
 
 	public Abbonamento(String codiceUnivoco, LocalDate dataEmissione, Double prezzo, TipoAbbonamento tipo,
 			LocalDate dataScadenza, Boolean vidimato, Tessera tessera, RivenditoreAutorizzato rivenditore) {
@@ -46,9 +46,11 @@ public class Abbonamento extends DocumentoViaggio {
 
 	@Override
 	public String toString() {
-		return "Abbonamento [tipo=" + tipo + ", dataScadenza=" + dataScadenza + ", vidimato=" + vidimato + ", tessera="
-				+ tessera + ", rivenditore=" + rivenditore + ", id=" + id + ", codiceUnivoco=" + codiceUnivoco
-				+ ", dataEmissione=" + dataEmissione + ", prezzo=" + prezzo + "]";
+		return "Abbonamento [id=" + id + ", tipo=" + tipo + ", dataScadenza=" + dataScadenza + ", vidimato=" + vidimato
+				+ ", tessera=" + tessera + ", rivenditore=" + rivenditore + ", toString()=" + super.toString()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
+
+	
 
 }

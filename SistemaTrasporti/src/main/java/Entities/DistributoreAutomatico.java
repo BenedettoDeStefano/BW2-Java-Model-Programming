@@ -15,11 +15,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class DistributoreAutomatico {
+	
 	@Id
 	@GeneratedValue
-   Long id;
-   String posizione;
-   Boolean attivo;
+	private Long id;
+	private String posizione;
+	private Boolean attivo;
+	
 public DistributoreAutomatico(String posizione, Boolean attivo) {
 	super();
 	this.posizione = posizione;
