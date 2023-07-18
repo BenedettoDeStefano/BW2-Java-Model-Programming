@@ -18,6 +18,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Tessera {
+	
 	private Date dataScadenza;
 	@Id
 	@GeneratedValue 

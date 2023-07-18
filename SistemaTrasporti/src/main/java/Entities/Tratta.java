@@ -1,10 +1,15 @@
 package Entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 
 import lombok.Getter;
@@ -26,17 +31,16 @@ public class Tratta {
 	
 	private String zonaPartenza;
 	private String capolinea;
-	private int tempoMediaPercorrenza;
-	private int numeroVoltePercorso;
-	private int tempoEffettivoPercorrenza;
 	
-	public Tratta(String zonaPartenza, String capolinea, int tempoMediaPercorrenza, int numeroVoltePercorso,
-			int tempoEffettivoPercorrenza) {
+	@ManyToMany
+	@JoinTable(name = "tratta_tempo",joinColumns = @JoinColumn(name = "tratta_id"),
+	inverseJoinColumns = @JoinColumn(name = "tempo_id"))
+	private List<TempoMedioPercorrenza> tempiMediPercorrenza;
+	
+	public Tratta(String zonaPartenza, String capolinea) {
+		super();
 		this.zonaPartenza = zonaPartenza;
 		this.capolinea = capolinea;
-		this.tempoMediaPercorrenza = tempoMediaPercorrenza;
-		this.numeroVoltePercorso = numeroVoltePercorso;
-		this.tempoEffettivoPercorrenza = tempoEffettivoPercorrenza;
 	}
 	
 	
