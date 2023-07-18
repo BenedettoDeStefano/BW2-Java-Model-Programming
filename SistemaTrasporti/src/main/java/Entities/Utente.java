@@ -24,7 +24,6 @@ public class Utente {
 	private Long id;
 	private String Nome;
 	private String Cognome;
-	private Tessera Tessera;
 	
 	@OneToOne
 	private Tessera tessera;
@@ -37,7 +36,6 @@ public class Utente {
 	public Utente(String _nome, String _cognome, Tessera _tessera , List<Biglietto> biglietti) {
 		this.Nome = _nome;
 		this.Cognome = _cognome;
-		this.Tessera = _tessera;
 		this.biglietti = biglietti;
 	}
 	
