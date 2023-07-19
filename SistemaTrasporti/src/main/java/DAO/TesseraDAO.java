@@ -99,12 +99,13 @@ public class TesseraDAO {
 	}
 	
 	public Tessera getTesseraById(Long id) {
-		
-		try {
-			log.info("Tessera trovata con id" + id);
-			return em.find(Tessera.class, id);
-		}finally {
-			em.close();
-		}
+	    try {
+	        log.info("Tessera trovata con id" + id);
+	        return em.find(Tessera.class, id);
+	    } catch (Exception e) {
+	        log.error("Errore durante il recupero della tessera con id: " + id, e);
+	        return null; 
+	    }
+	
 	}
 }

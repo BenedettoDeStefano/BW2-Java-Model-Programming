@@ -39,9 +39,6 @@ public class UtenteDAO {
 				transaction.rollback();
 			
 			log.error("Errore durante salvataggio di un Utente");
-		}finally {
-			if (em != null)
-				em.close();
 		}
 	}
 	
