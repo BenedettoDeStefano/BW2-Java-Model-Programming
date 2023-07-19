@@ -1,6 +1,7 @@
 package Entities;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,14 +20,14 @@ import lombok.ToString;
 @ToString
 public class Tessera {
 	
-	private Date dataScadenza;
+	private LocalDate dataScadenza;
+	
 	@Id
 	@GeneratedValue 
 	private int numeroTessera;
 	
 	
-	public Tessera(Date _dataScadenza, int _numeroTessera) {
-		super();
+	public Tessera(LocalDate _dataScadenza) {
 		this.dataScadenza = _dataScadenza;
 	}
 	

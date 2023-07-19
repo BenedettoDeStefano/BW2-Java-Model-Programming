@@ -39,9 +39,6 @@ public class TesseraDAO {
 				transaction.rollback();
 			
 			log.error("Errore durante salvataggio della tessera!");
-		}finally {
-			if (em != null)
-				em.close();
 		}
 	}
 	
