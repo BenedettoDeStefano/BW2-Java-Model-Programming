@@ -34,7 +34,7 @@ public class TesseraDAO {
 			
 			transaction.commit();
 			
-			log.info("Tessera salvata nel databse correttamente");
+			log.info("Tessera salvata nel database correttamente");
 		}catch (Exception e){
 			if (transaction != null) 
 				transaction.rollback();
@@ -58,7 +58,7 @@ public class TesseraDAO {
 			
 			transaction.commit();
 			
-			log.info("Tessera modificata nel databse correttamente");
+			log.info("Tessera modificata nel database correttamente");
 		}catch (Exception e){
 			if (transaction != null) 
 				transaction.rollback();
@@ -100,7 +100,7 @@ public class TesseraDAO {
 			TypedQuery<Tessera> query = em.createQuery("SELECT t FROM Tessera t", Tessera.class);
 			return query.getResultList();
 		}catch (Exception e) {
-			log.error("Errore durante il recupero di lesta tessere");
+			log.error("Errore durante il recupero di lista tessere");
 			return new ArrayList<>();
 		}
 	}
