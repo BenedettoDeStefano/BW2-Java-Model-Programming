@@ -15,15 +15,14 @@ import Entities.Tessera;
 
 public class TesseraDAO {
 	
-	private EntityManagerFactory emf;
+	private EntityManager em;
 	private static Logger log = Logger.getLogger(TesseraDAO.class);
 	
-	public TesseraDAO() {
-		emf = Persistence.createEntityManagerFactory("sistemaTrasporti");
+	public TesseraDAO(EntityManager em) {
+		this.em = em;
 	}
 	
 	public void salvaTessera(Tessera tessera) {
-		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = null;
 		
 		try {
@@ -47,7 +46,6 @@ public class TesseraDAO {
 	}
 	
 	public void updateTessera(Tessera tessera) {
-		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = null;
 		
 		try {
@@ -71,7 +69,6 @@ public class TesseraDAO {
 	}
 	
 	public void deleteTessera(Tessera tessera) {
-		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = null;
 		
 		try {
@@ -95,7 +92,6 @@ public class TesseraDAO {
 	}
 	
 	public List<Tessera> getAllTessere() {
-		EntityManager em = emf.createEntityManager();
 		try {
 			TypedQuery<Tessera> query = em.createQuery("SELECT t FROM Tessera t", Tessera.class);
 			return query.getResultList();
@@ -106,7 +102,6 @@ public class TesseraDAO {
 	}
 	
 	public Tessera getTesseraById(Long id) {
-		EntityManager em = emf.createEntityManager();
 		
 		try {
 			log.info("Tessera trovata con id" + id);

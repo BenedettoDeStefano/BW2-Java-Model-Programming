@@ -15,15 +15,14 @@ import Entities.Utente;
 
 public class UtenteDAO {
 
-	private final EntityManagerFactory emf;
+	private final EntityManager em;
     private static Logger log = Logger.getLogger(UtenteDAO.class);
 
-	public UtenteDAO() {
-		emf = Persistence.createEntityManagerFactory("sistemaTrasporti");
+	public UtenteDAO(EntityManager em) {
+		this.em = em;
 	}
     
 	public void salvaUtente(Utente utente) {
-		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = null;
 		
 		try {
@@ -47,7 +46,6 @@ public class UtenteDAO {
 	}
 	
 	public void updateUtente(Utente utente) {
-		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = null;
 		
 		try {
@@ -71,7 +69,6 @@ public class UtenteDAO {
 	}
 	
 	public void deleteUtente(Utente utente) {
-		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = null;
 		
 		try {
@@ -95,7 +92,6 @@ public class UtenteDAO {
 	}
 	
 	public List<Utente> getAllUtenti() {
-		EntityManager em = emf.createEntityManager();
 		try {
 			TypedQuery<Utente> query = em.createQuery("SELECT t FROM Utente t", Utente.class);
 			log.info("Lista utenti recuperata correttamente");
@@ -107,7 +103,6 @@ public class UtenteDAO {
 	}
 	
 	public Utente getUtenteById(Long id) {
-		EntityManager em = emf.createEntityManager();
 		
 		try {
 			log.info("Utente trovato con id" + id);
