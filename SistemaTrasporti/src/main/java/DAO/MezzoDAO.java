@@ -107,4 +107,8 @@ public class MezzoDAO {
 		log.info("Lista di mezzi in manutenzione: " + mezzi);
 		return mezzi;
 	}
+
+	public Mezzo findMezzoByCodice(Long codiceMezzo) {
+		return em.find(Mezzo.class, codiceMezzo);
+	}
 }

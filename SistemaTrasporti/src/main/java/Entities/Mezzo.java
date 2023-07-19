@@ -42,19 +42,17 @@ public class Mezzo {
 	private Tratta tratta;
 
 	@OneToMany(mappedBy = "mezzo")
-	private List<trattePercorse> trattePercorse;
+	private List<TrattePercorse> trattePercorse;
 
 	@ManyToOne
 	@JoinColumn(name = "officina_id")
 	private Officina officina;
 
-	public Mezzo(TipoMezzo tipo, StatoMezzo stato, int capienza, Tratta tratta, List<trattePercorse> trattePercorse,
-			Officina officina) {
+	public Mezzo(TipoMezzo tipo, StatoMezzo stato, int capienza, Tratta tratta, Officina officina) {
 		this.tipo = tipo;
 		this.stato = stato;
 		this.capienza = capienza;
 		this.tratta = tratta;
-		this.trattePercorse = trattePercorse;
 		this.officina = officina;
 	}
 }

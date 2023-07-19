@@ -16,15 +16,14 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class trattePercorse {
+public class TrattePercorse {
 
 	@Id
 	@GeneratedValue
 	private Long codiceTratta;
 
-	private Long codiceMezzo;
 	private Long codiceStorico;
-	private Long tempoEffettivo;
+	private int tempoEffettivo;
 
 	@ManyToOne
 	@JoinColumn(name = "codice_mezzo")
@@ -34,11 +33,11 @@ public class trattePercorse {
 	@JoinColumn(name = "codice_tratta")
 	private Tratta tratta;
 
-	public trattePercorse(Long codiceMezzo, Long codiceStorico, Long tempoEffettivo) {
-		super();
-		this.codiceMezzo = codiceMezzo;
+	public TrattePercorse(Long codiceStorico, int tempoEffettivo, Mezzo mezzo, Tratta tratta) {
 		this.codiceStorico = codiceStorico;
 		this.tempoEffettivo = tempoEffettivo;
+		this.mezzo = mezzo;
+		this.tratta = tratta;
 	}
 
 }

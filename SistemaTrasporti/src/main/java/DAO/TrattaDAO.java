@@ -84,4 +84,7 @@ public class TrattaDAO {
 		return count.intValue();
 	}
 
+	public Tratta findTrattaByCodice(Long codiceTratta) {
+		return em.find(Tratta.class, codiceTratta);
+	}
 }
