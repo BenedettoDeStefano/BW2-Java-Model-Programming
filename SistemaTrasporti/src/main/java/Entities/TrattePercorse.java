@@ -40,4 +40,5 @@ public class TrattePercorse {
 		this.tratta = tratta;
 	}
 
+	// Resto del codice
 }

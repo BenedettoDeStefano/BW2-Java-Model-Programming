@@ -101,31 +101,48 @@ public class App {
 		}
 
 		// Creazione/Salvataggio Mezzo
+		List<Mezzo> mezzi = new ArrayList<>(); // Aggiungiamo questa lista per tener traccia dei mezzi creati
+
 		for (int i = 0; i < 5; i++) {
 			TipoMezzo tipo = TipoMezzo.values()[random.nextInt(TipoMezzo.values().length)];
 			StatoMezzo stato = StatoMezzo.values()[random.nextInt(StatoMezzo.values().length)];
 			int capienza = random.nextInt(100) + 1;
 			Tratta tratta = tratte.get(random.nextInt(tratte.size()));
-			Officina officina = officineList.get(random.nextInt(officineList.size()));
-			Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta, officina);
-			mz.saveMezzo(mezzo);
+			Officina officina = null; // Inizializziamo a null, assegneremo solo se necessario
+
+			if (stato == StatoMezzo.IN_SERVIZIO) {
+				// Mezzo in servizio, quindi id_officina deve essere null
+				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta);
+				mz.saveMezzo(mezzo);
+				mezzi.add(mezzo); // Aggiungiamo il mezzo alla lista per tener traccia
+			} else {
+				// Mezzo in manutenzione, quindi id_officina deve essere un'officina casuale
+				officina = officineList.get(random.nextInt(officineList.size()));
+				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta, officina);
+				mz.saveMezzo(mezzo);
+				mezzi.add(mezzo); // Aggiungiamo il mezzo alla lista per tener traccia
+			}
 		}
 
 		// Creazione/Salvataggio TrattePercorse
-		List<TrattePercorse> trattePercorseList = new ArrayList<>();
+		List<Mezzo> mezzis = mz.getAllMezzi();
+		List<Tratta> trattes = tr.getAllTratte();
+
 		for (int i = 0; i < 5; i++) {
 			long codiceStorico = random.nextLong(1000) + 1;
 			int tempoEffettivo = random.nextInt(200) + 1;
-
-			// Genera casualmente il codice mezzo e tratta
-			List<Mezzo> mezzi = mz.getAllMezzi();
-			List<Tratta> trattes = tr.getAllTratte();
 
 			Mezzo mezzo = mezzi.get(random.nextInt(mezzi.size()));
 			Tratta tratta = trattes.get(random.nextInt(trattes.size()));
 
 			TrattePercorse trattePercorse = new TrattePercorse(codiceStorico, tempoEffettivo, mezzo, tratta);
-			trattePercorseList.add(trattePercorse);
+
+			// Aggiungi l'oggetto TrattePercorse alla lista del Mezzo
+			mezzo.addTrattePercorse(trattePercorse);
+
+			// Aggiungi l'oggetto TrattePercorse alla lista del Tratta
+			tratta.addTrattePercorse(trattePercorse);
+
 			tpd.save(trattePercorse);
 		}
 

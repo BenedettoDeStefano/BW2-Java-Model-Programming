@@ -1,5 +1,6 @@
 package Entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -17,8 +18,8 @@ import lombok.ToString;
 @Table(name = "Tratta")
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
+@NoArgsConstructor
 public class Tratta {
 
 	@Id
@@ -32,9 +33,12 @@ public class Tratta {
 	private List<TrattePercorse> trattePercorse;
 
 	public Tratta(String zonaPartenza, String capolinea) {
-		super();
 		this.zonaPartenza = zonaPartenza;
 		this.capolinea = capolinea;
+		this.trattePercorse = new ArrayList<>();
 	}
 
+	public void addTrattePercorse(TrattePercorse trattePercorse) {
+		this.trattePercorse.add(trattePercorse);
+	}
 }

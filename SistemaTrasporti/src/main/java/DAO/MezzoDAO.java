@@ -42,7 +42,8 @@ public class MezzoDAO {
 	}
 
 	public List<Mezzo> getAllMezzi() {
-		TypedQuery<Mezzo> query = em.createQuery("SELECT m FROM Mezzo m", Mezzo.class);
+		TypedQuery<Mezzo> query = em.createQuery("SELECT DISTINCT m FROM Mezzo m LEFT JOIN FETCH m.trattePercorse",
+				Mezzo.class);
 		List<Mezzo> mezzi = query.getResultList();
 		log.info("Lista di tutti i mezzi presenti nel database: " + mezzi);
 		return mezzi;
