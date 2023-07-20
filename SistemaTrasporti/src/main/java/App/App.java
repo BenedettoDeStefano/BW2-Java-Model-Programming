@@ -199,6 +199,10 @@ public class App {
 		System.out.println("4. Visualizza rivenditori autorizzati");
 		System.out.println("5. Visualizza distributori automatici");
 		System.out.println("6. Visualizza lista dei mezzi");
+		System.out.println("7. Visualizza tratta per mezzo");
+		System.out.println("8. Visualizza tempo per tratta");
+		System.out.println("9. Visualizza tratta del mezzo");
+
 
 		int sceltaUtente = scanner.nextInt();
 		scanner.nextLine();
@@ -247,13 +251,62 @@ public class App {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println();
 		System.out.print("\n Benvenuto Amministratore, cosa vuoi fare? \n");
+		//Biglietti e Abbonamento
+		System.out.println("1. Emetti Biglietto");
+		System.out.println("2. Emetti Abbonamento");
+		System.out.println("3. Vidima Biglietto");
+		System.out.println("4. Aquisisci numero biglietti vidimati");
+		System.out.println("5. Modifica Biglietto");
+		System.out.println("6. Elimina Biglietto");
+		System.out.println("7. Visualizza biglietti disponibili");
+		System.out.println("8. Visualizza il tipo di abbonamento");
+		System.out.println("10. Visualizza abbonamento vidimato");
+		System.out.println("11. Visualizza tessera abbonamento");
+		System.out.println("12. Visualizza tutti abbonamenti");
+		System.out.println("13. Modifica abbonamento");
+		System.out.println("14. Cancella abbonamento \n");
+		
+		//Distributore
+		System.out.println("15. Modifica distributore");
+		System.out.println("16. Cancella un distributore \n");
+		
+		//Mezzo
+		System.out.println("17. Visualizza lo stato del mezzo");
+		System.out.println("18. Visualizza mezzi in servizio");
+		System.out.println("19. Visualizza mezzi in manutenzione");
+		System.out.println("20. Modifica mezzo");
+		System.out.println("21. Cancella mezzo \n");
+		
+		//Officine
+		System.out.println("22. Visualizza le officine disponibili");
+		System.out.println("23. Modifica officina");
+		System.out.println("24. Elimina officina \n");
+		
+		//Rivenditori
+		System.out.println("25. Modifica rivenditore");
+		System.out.println("26. Cancella rivenditore \n");
+		
+		//Tessera
+		System.out.println("27. Visualizza tessere disponibili");
+		System.out.println("28. Modifica tessera");
+		System.out.println("29. Cancella tessera \n");
+		
+		//Tratta
+		System.out.println("30. Modifica tratta");
+		System.out.println("31. Cancella tratta \n");
+		
+		//Utente
+		System.out.println("32. Visualizza tutti gli utenti");
+		System.out.println("33. Modifica utente");
+		System.out.println("34. Cancella utente \n");
 
+		
 		int sceltaAmministratore = scanner.nextInt();
 		scanner.nextLine();
 
 		switch (sceltaAmministratore) {
 		case 1:
-
+			
 			break;
 		case 2:
 
