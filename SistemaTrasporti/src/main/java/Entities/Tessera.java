@@ -1,7 +1,7 @@
 package Entities;
 
-import java.sql.Date;
 import java.time.LocalDate;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,11 +24,13 @@ public class Tessera {
 	
 	@Id
 	@GeneratedValue 
-	private int numeroTessera;
+	private UUID id;
 	
+	private Long numeroTessera;
 	
-	public Tessera(LocalDate _dataScadenza) {
+	public Tessera(LocalDate _dataScadenza, Long numeroTessera) {
 		this.dataScadenza = _dataScadenza;
+		this.numeroTessera = numeroTessera;
 	}
 	
 	@OneToOne(mappedBy = "tessera")

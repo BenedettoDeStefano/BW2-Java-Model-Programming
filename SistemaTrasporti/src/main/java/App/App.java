@@ -55,8 +55,8 @@ public class App {
 		TrattePercorseDAO tpd = new TrattePercorseDAO(em);
 		MezzoDAO mz = new MezzoDAO(em);
 		UtenteDAO ut = new UtenteDAO(em);
-		AbbonamentoDAO abbonamentoDAO = new AbbonamentoDAO(em);
-		BigliettoDAO bigliettoDAO = new BigliettoDAO(em);
+		AbbonamentoDAO ab = new AbbonamentoDAO(em);
+		BigliettoDAO bg = new BigliettoDAO(em);
 
 		// Creazione e salvataggio dei rivenditori autorizzati
 		for (int i = 0; i < 5; i++) {
@@ -68,7 +68,8 @@ public class App {
 		// Creazione/Salvataggio Tessere
 		for (int i = 0; i < 5; i++) {
 			LocalDate dataScadenza = LocalDate.now().plusMonths(i + 1);
-			Tessera tessera = new Tessera(dataScadenza);
+			Long codiceTessera = random.nextLong();
+			Tessera tessera = new Tessera(dataScadenza, codiceTessera);
 			ts.salvaTessera(tessera);
 		}
 
@@ -101,26 +102,24 @@ public class App {
 		}
 
 		// Creazione/Salvataggio Mezzo
-		List<Mezzo> mezzi = new ArrayList<>(); // Aggiungiamo questa lista per tener traccia dei mezzi creati
+		List<Mezzo> mezzi = new ArrayList<>();
 
 		for (int i = 0; i < 5; i++) {
 			TipoMezzo tipo = TipoMezzo.values()[random.nextInt(TipoMezzo.values().length)];
 			StatoMezzo stato = StatoMezzo.values()[random.nextInt(StatoMezzo.values().length)];
 			int capienza = random.nextInt(100) + 1;
 			Tratta tratta = tratte.get(random.nextInt(tratte.size()));
-			Officina officina = null; // Inizializziamo a null, assegneremo solo se necessario
+			Officina officina = null;
 
 			if (stato == StatoMezzo.IN_SERVIZIO) {
-				// Mezzo in servizio, quindi id_officina deve essere null
 				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta);
 				mz.saveMezzo(mezzo);
-				mezzi.add(mezzo); // Aggiungiamo il mezzo alla lista per tener traccia
+				mezzi.add(mezzo); 
 			} else {
-				// Mezzo in manutenzione, quindi id_officina deve essere un'officina casuale
 				officina = officineList.get(random.nextInt(officineList.size()));
 				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta, officina);
 				mz.saveMezzo(mezzo);
-				mezzi.add(mezzo); // Aggiungiamo il mezzo alla lista per tener traccia
+				mezzi.add(mezzo); 
 			}
 		}
 
@@ -131,75 +130,33 @@ public class App {
 		for (int i = 0; i < 5; i++) {
 			long codiceStorico = random.nextLong(1000) + 1;
 			int tempoEffettivo = random.nextInt(200) + 1;
-
 			Mezzo mezzo = mezzi.get(random.nextInt(mezzi.size()));
 			Tratta tratta = trattes.get(random.nextInt(trattes.size()));
-
 			TrattePercorse trattePercorse = new TrattePercorse(codiceStorico, tempoEffettivo, mezzo, tratta);
-
-			// Aggiungi l'oggetto TrattePercorse alla lista del Mezzo
 			mezzo.addTrattePercorse(trattePercorse);
-
-			// Aggiungi l'oggetto TrattePercorse alla lista del Tratta
 			tratta.addTrattePercorse(trattePercorse);
-
 			tpd.save(trattePercorse);
 		}
-
-		// **************************************************************
-
-//	        Tessera tessera1 = ts.getTesseraById(192);
-//	        Tessera tessera2 = ts.getTesseraById(240);
-//	        Tessera tessera3 = ts.getTesseraById(215);
-
-		// Creazione/Salvataggio Utenti
-//	        Utente utente1 = new Utente("Benedetto" , "De Stefano" , ts.getTesseraById(192), null);
-//	        ut.salvaUtente(utente1);
-//	        
-//	        Utente utente2 = new Utente("Artem", "X5", ts.getTesseraById(240), null);
-//	        ut.salvaUtente(utente2);
-
-		// CAMBIARE LONG CON UUD
-
-		// SCANNER (1)
-//	        System.out.println("Sei un utente o un amministratore? (scrivi 'utente' o 'amministratore')");
-//	        String userType = scanner.nextLine();
-//
-//	        if (userType.equalsIgnoreCase("utente")) {
-//	            
-//	        } else if (userType.equalsIgnoreCase("amministratore")) {
-//	            
-//	        } else {
-//	            System.out.println("Tipo di utente non riconosciuto. Accesso negato.");
-//	        }
-
-		// SCANNER (1)
-//	        System.out.println("Benvenuto! Seleziona il tuo ruolo:");
-//	        System.out.println("1. Utente");
-//	        System.out.println("2. Amministratore");
-//	        System.out.print("Inserisci il numero corrispondente al tuo ruolo: ");
-//	        int choice = scanner.nextInt();
-//
-//	        switch (choice) {
-//	            case 1:
-//	                accessoUtente(em, faker);
-//	                break;
-//	            case 2:
-//	                accessoAmministratore(em, faker);
-//	                break;
-//	            default:
-//	                System.out.println("Scelta non valida. Uscita dall'applicazione.");
-//	                break;
-//	        }
-//	    }
-
-		// ****************************************************************
 
 		em.close();
 		emf.close();
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //		RivenditoreAutorizzato rivenditore1 = new RivenditoreAutorizzato(faker.company().name(), faker.address().fullAddress());
 //	    RivenditoreAutorizzato rivenditore2 = new RivenditoreAutorizzato(faker.company().name(), faker.address().fullAddress());
@@ -223,3 +180,51 @@ public class App {
 //	    Tratta tratta1 = new Tratta("Napoli","Roma");
 
 //	    Officina officina1 = new Officina (LocalDate.now(), LocalDate.now().plusMonths(1));
+// **************************************************************
+
+//	        Tessera tessera1 = ts.getTesseraById(192);
+//	        Tessera tessera2 = ts.getTesseraById(240);
+//	        Tessera tessera3 = ts.getTesseraById(215);
+
+// Creazione/Salvataggio Utenti
+//	        Utente utente1 = new Utente("Benedetto" , "De Stefano" , ts.getTesseraById(192), null);
+//	        ut.salvaUtente(utente1);
+//	        
+//	        Utente utente2 = new Utente("Artem", "X5", ts.getTesseraById(240), null);
+//	        ut.salvaUtente(utente2);
+
+// CAMBIARE LONG CON UUD\
+
+// SCANNER (1)
+//	        System.out.println("Sei un utente o un amministratore? (scrivi 'utente' o 'amministratore')");
+//	        String userType = scanner.nextLine();
+//
+//	        if (userType.equalsIgnoreCase("utente")) {
+//	            
+//	        } else if (userType.equalsIgnoreCase("amministratore")) {
+//	            
+//	        } else {
+//	            System.out.println("Tipo di utente non riconosciuto. Accesso negato.");
+//	        }
+
+// SCANNER (1)
+//	        System.out.println("Benvenuto! Seleziona il tuo ruolo:");
+//	        System.out.println("1. Utente");
+//	        System.out.println("2. Amministratore");
+//	        System.out.print("Inserisci il numero corrispondente al tuo ruolo: ");
+//	        int choice = scanner.nextInt();
+//
+//	        switch (choice) {
+//	            case 1:
+//	                accessoUtente(em, faker);
+//	                break;
+//	            case 2:
+//	                accessoAmministratore(em, faker);
+//	                break;
+//	            default:
+//	                System.out.println("Scelta non valida. Uscita dall'applicazione.");
+//	                break;
+//	        }
+//	    }
+
+// ****************************************************************
