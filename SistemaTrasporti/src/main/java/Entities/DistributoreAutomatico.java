@@ -15,7 +15,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class DistributoreAutomatico {
 	
 	@Id
@@ -29,6 +28,13 @@ public DistributoreAutomatico(String posizione, Boolean attivo) {
 	this.posizione = posizione;
 	this.attivo = attivo;
 }
+
+@Override
+public String toString() {
+	return "DistributoreAutomatico [posizione=" + posizione + ", attivo=" + attivo + "]";
+}
    
+
+
   
 }
