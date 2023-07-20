@@ -23,7 +23,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Mezzo {
 
 	@Id
@@ -70,5 +69,10 @@ public class Mezzo {
 
 	public void addTrattePercorse(TrattePercorse trattePercorse) {
 		this.trattePercorse.add(trattePercorse);
+	}
+
+	@Override
+	public String toString() {
+	    return "Mezzo: Tipo = " + tipo + ", Stato = " + stato + ", Capienza = " + capienza;
 	}
 }

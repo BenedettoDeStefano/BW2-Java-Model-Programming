@@ -1,6 +1,8 @@
 package App;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
@@ -13,14 +15,26 @@ import org.jboss.logging.Logger;
 
 import com.github.javafaker.Faker;
 
+import DAO.AbbonamentoDAO;
 import DAO.BigliettoDAO;
 import DAO.DistributoreAutomaticoDAO;
 import DAO.MezzoDAO;
+import DAO.OfficinaDAO;
+import DAO.RivenditoreAutorizzatoDAO;
+import DAO.TesseraDAO;
+import DAO.TrattaDAO;
+import DAO.TrattePercorseDAO;
 import DAO.UtenteDAO;
 import Entities.Biglietto;
 import Entities.DistributoreAutomatico;
 import Entities.Mezzo;
+import Entities.Officina;
+import Entities.RivenditoreAutorizzato;
+import Entities.Tessera;
+import Entities.Tratta;
+import Entities.TrattePercorse;
 import Entities.Utente;
+import Enum.StatoMezzo;
 import Enum.TipoBiglietto;
 import Enum.TipoMezzo;
 
@@ -36,16 +50,16 @@ public class App {
 		Faker faker = new Faker(new Locale("it"));
 		Random random = new Random();
 
-//		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
-//		TesseraDAO ts = new TesseraDAO(em);
-//		TrattaDAO tr = new TrattaDAO(em);
-//		OfficinaDAO of = new OfficinaDAO(em);
-//		DistributoreAutomaticoDAO dsa = new DistributoreAutomaticoDAO(em);
-//		TrattePercorseDAO tpd = new TrattePercorseDAO(em);
-//		MezzoDAO mz = new MezzoDAO(em);
-//		UtenteDAO ut = new UtenteDAO(em);
-//		AbbonamentoDAO ab = new AbbonamentoDAO(em);
-//		BigliettoDAO bg = new BigliettoDAO(em);
+		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
+		TesseraDAO ts = new TesseraDAO(em);
+		TrattaDAO tr = new TrattaDAO(em);
+		OfficinaDAO of = new OfficinaDAO(em);
+		DistributoreAutomaticoDAO dsa = new DistributoreAutomaticoDAO(em);
+		TrattePercorseDAO tpd = new TrattePercorseDAO(em);
+		MezzoDAO mz = new MezzoDAO(em);
+		UtenteDAO ut = new UtenteDAO(em);
+		AbbonamentoDAO ab = new AbbonamentoDAO(em);
+		BigliettoDAO bg = new BigliettoDAO(em);
 
 //		// Creazione e salvataggio dei rivenditori autorizzati
 //		for (int i = 0; i < 5; i++) {
@@ -147,30 +161,30 @@ public class App {
 //			ut.salvaUtente(utente);
 //			System.out.println(utente);
 //		}
-//
-//		// Scelta tra Utente e Amministratore
-//		System.out.println("\n -----------------------Seleziona il tuo ruolo:-----------------------");
-//		System.out.println("1. Utente");
-//		System.out.println("2. Amministratore");
-//		System.err.print("Inserisci il numero corrispondente al tuo ruolo: ");
-//		int scelta = scanner.nextInt();
-//		scanner.nextLine();
-//
-//		switch (scelta) {
-//		case 1:
-//			accessoUtente();
-//			break;
-//		case 2:
-//			accessoAmministratore();
-//			break;
-//		default:
-//			System.out.println("Scelta non valida. Uscita dall'applicazione.");
-//			break;
-//		}
-//
-//		scanner.close();
-//		em.close();
-//		emf.close();
+
+		// Scelta tra Utente e Amministratore
+		System.out.println("\n -----------------------Seleziona il tuo ruolo:-----------------------");
+		System.out.println("1. Utente");
+		System.out.println("2. Amministratore");
+		System.err.print("Inserisci il numero corrispondente al tuo ruolo: ");
+		int scelta = scanner.nextInt();
+		scanner.nextLine();
+
+		switch (scelta) {
+		case 1:
+			accessoUtente();
+			break;
+		case 2:
+			accessoAmministratore();
+			break;
+		default:
+			System.out.println("Scelta non valida. Uscita dall'applicazione.");
+			break;
+		}
+
+		scanner.close();
+		em.close();
+		emf.close();
 	}
 
 	public static void accessoUtente() {
@@ -197,7 +211,7 @@ public class App {
 		case 1:
 			DistributoreAutomatico distributore = dsa.getDistributoreAutomaticoCasuale();
 			Utente user1 = ut.getUtenteCasuale();
-			Mezzo mezzo1 = mz.getMezzoById(608);
+			Mezzo mezzo1 = mz.getMezzoById(1205);
 
 			Biglietto ticket1 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
 					distributore, null, user1, mezzo1, TipoMezzo.TRAM);
@@ -238,6 +252,16 @@ public class App {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
 
 //		RivenditoreAutorizzato rivenditore1 = new RivenditoreAutorizzato(faker.company().name(), faker.address().fullAddress());
 //	    RivenditoreAutorizzato rivenditore2 = new RivenditoreAutorizzato(faker.company().name(), faker.address().fullAddress());
