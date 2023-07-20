@@ -18,7 +18,6 @@ import lombok.ToString;
 @Table(name = "Tratta")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Tratta {
 
@@ -40,5 +39,11 @@ public class Tratta {
 
 	public void addTrattePercorse(TrattePercorse trattePercorse) {
 		this.trattePercorse.add(trattePercorse);
+	}
+
+	@Override
+	public String toString() {
+		return "Tratta [zonaPartenza=" + zonaPartenza + ", capolinea=" + capolinea + ", trattePercorse="
+				+ trattePercorse + "]";
 	}
 }

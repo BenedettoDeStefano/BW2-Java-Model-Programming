@@ -17,14 +17,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class Tessera {
 	
 	private LocalDate dataScadenza;
 	
 	@Id
 	@GeneratedValue 
-	private Long id;
+	private int id;
 	
 	private Long numeroTessera;
 	

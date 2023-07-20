@@ -15,7 +15,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class TrattePercorse {
 
 	@Id
@@ -40,4 +39,10 @@ public class TrattePercorse {
 		this.tratta = tratta;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "TrattePercorse [codiceStorico=" + codiceStorico + ", tempoEffettivo=" + tempoEffettivo + ", mezzo="
+				+ mezzo + ", tratta=" + tratta + "]";
+	}
 }
