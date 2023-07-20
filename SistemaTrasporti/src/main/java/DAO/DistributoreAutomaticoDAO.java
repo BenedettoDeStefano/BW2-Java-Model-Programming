@@ -1,17 +1,14 @@
 package DAO;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import org.jboss.logging.Logger;
 
 import Entities.DistributoreAutomatico;
-import Entities.RivenditoreAutorizzato;
 
 public class DistributoreAutomaticoDAO {
 
@@ -35,7 +32,7 @@ public class DistributoreAutomaticoDAO {
 		}
 	}
 
-	public DistributoreAutomatico getDistributoreAutomaticoById(int id) {
+	public DistributoreAutomatico getDistributoreAutomaticoById(Long id) {
 		try {
 			return em.find(DistributoreAutomatico.class, id);
 		} catch (Exception e) {
@@ -45,18 +42,18 @@ public class DistributoreAutomaticoDAO {
 	}
 
 	public List<DistributoreAutomatico> getAllDistributoriAutomatici() {
-        try {
-            Query query = em.createQuery("SELECT d FROM DistributoreAutomatico d", DistributoreAutomatico.class);
-            List<DistributoreAutomatico> distributoreAut = query.getResultList();
-            for (DistributoreAutomatico distributore : distributoreAut) {
-                log.info(distributore.toString());
-            }
-            return distributoreAut;
-        } catch (Exception e) {
-            log.error("Errore durante il recupero di tutti i distributori automatici: " + e.getMessage());
-            return null;
-        }
-    }
+		try {
+			Query query = em.createQuery("SELECT d FROM DistributoreAutomatico d", DistributoreAutomatico.class);
+			List<DistributoreAutomatico> distributoreAut = query.getResultList();
+			for (DistributoreAutomatico distributore : distributoreAut) {
+				log.info(distributore.toString());
+			}
+			return distributoreAut;
+		} catch (Exception e) {
+			log.error("Errore durante il recupero di tutti i distributori automatici: " + e.getMessage());
+			return null;
+		}
+	}
 
 	public void updateDistributoreAutomatico(DistributoreAutomatico distributore) {
 		EntityTransaction transaction = em.getTransaction();
