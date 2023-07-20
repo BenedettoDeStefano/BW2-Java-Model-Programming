@@ -17,7 +17,6 @@ import Enum.TipoMezzo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @NoArgsConstructor
@@ -27,7 +26,7 @@ public class Mezzo {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 	@Enumerated(EnumType.STRING)
 	private TipoMezzo tipo;
 	@Enumerated(EnumType.STRING)
@@ -73,6 +72,6 @@ public class Mezzo {
 
 	@Override
 	public String toString() {
-	    return "Mezzo: Tipo = " + tipo + ", Stato = " + stato + ", Capienza = " + capienza + "\n";
+		return "Mezzo: Tipo = " + tipo + ", Stato = " + stato + ", Capienza = " + capienza + "\n";
 	}
 }

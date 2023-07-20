@@ -69,8 +69,8 @@ public class TrattePercorseDAO {
 	}
 
 	public List<TrattePercorse> findByMezzo(Long codiceMezzo) {
-		return em.createQuery("SELECT tp FROM TrattePercorse tp WHERE tp.codiceMezzo = :codiceMezzo",
-				TrattePercorse.class).setParameter("codiceMezzo", codiceMezzo).getResultList();
+		return em.createQuery("SELECT tp FROM TrattePercorse tp WHERE tp.mezzo.id = :codiceMezzo", TrattePercorse.class)
+				.setParameter("codiceMezzo", codiceMezzo).getResultList();
 	}
 
 	public List<TrattePercorse> findByStorico(Long codiceStorico) {

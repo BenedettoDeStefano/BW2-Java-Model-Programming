@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter
@@ -22,7 +21,7 @@ public class TrattePercorse {
 	private Long Id;
 
 	private Long codiceStorico;
-	private int tempoEffettivo;
+	private Long tempoEffettivo;
 
 	@ManyToOne
 	@JoinColumn(name = "codice_mezzo")
@@ -32,14 +31,13 @@ public class TrattePercorse {
 	@JoinColumn(name = "codice_tratta")
 	private Tratta tratta;
 
-	public TrattePercorse(Long codiceStorico, int tempoEffettivo, Mezzo mezzo, Tratta tratta) {
+	public TrattePercorse(Long codiceStorico, Long tempoEffettivo, Mezzo mezzo, Tratta tratta) {
 		this.codiceStorico = codiceStorico;
 		this.tempoEffettivo = tempoEffettivo;
 		this.mezzo = mezzo;
 		this.tratta = tratta;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "TrattePercorse [codiceStorico=" + codiceStorico + ", tempoEffettivo=" + tempoEffettivo + ", mezzo="

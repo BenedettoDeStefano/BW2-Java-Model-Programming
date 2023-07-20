@@ -33,8 +33,6 @@ import Entities.Officina;
 import Entities.RivenditoreAutorizzato;
 import Entities.Tessera;
 import Entities.Tratta;
-import Entities.TrattePercorse;
-import Entities.Utente;
 import Enum.StatoMezzo;
 import Enum.TipoAbbonamento;
 import Enum.TipoBiglietto;
@@ -63,70 +61,70 @@ public class App {
 		AbbonamentoDAO ab = new AbbonamentoDAO(em);
 		BigliettoDAO bg = new BigliettoDAO(em);
 
-//		// Creazione e salvataggio dei rivenditori autorizzati
-//		for (int i = 0; i < 5; i++) {
-//			RivenditoreAutorizzato rivenditore = new RivenditoreAutorizzato(faker.company().name(),
-//					faker.address().fullAddress());
-//			rva.saveRivenditoreAutorizzato(rivenditore);
-//		}
+		// Creazione e salvataggio dei rivenditori autorizzati
+		for (int i = 0; i < 5; i++) {
+			RivenditoreAutorizzato rivenditore = new RivenditoreAutorizzato(faker.company().name(),
+					faker.address().fullAddress());
+			rva.saveRivenditoreAutorizzato(rivenditore);
+		}
 //
-//		// Creazione/Salvataggio Tessere
-//		for (int i = 0; i < 5; i++) {
-//			LocalDate dataScadenza = LocalDate.now().plusMonths(i + 1);
-//			Long codiceTessera = random.nextLong();
-//			Tessera tessera = new Tessera(dataScadenza, codiceTessera);
-//			ts.salvaTessera(tessera);
-//		}
+		// Creazione/Salvataggio Tessere
+		for (int i = 0; i < 5; i++) {
+			LocalDate dataScadenza = LocalDate.now().plusMonths(i + 1);
+			Long codiceTessera = random.nextLong();
+			Tessera tessera = new Tessera(dataScadenza, codiceTessera);
+			ts.salvaTessera(tessera);
+		}
 //
-//		// Creazione/Salvataggio Tratta
-//		List<Tratta> tratte = new ArrayList<>();
-//		for (int i = 0; i < 5; i++) {
-//			String partenza = faker.address().city();
-//			String capolinea = faker.address().city();
-//			Tratta tratta = new Tratta(partenza, capolinea);
-//			tratte.add(tratta);
-//			tr.saveTratta(tratta);
-//		}
+		// Creazione/Salvataggio Tratta
+		List<Tratta> tratte = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			String partenza = faker.address().city();
+			String capolinea = faker.address().city();
+			Tratta tratta = new Tratta(partenza, capolinea);
+			tratte.add(tratta);
+			tr.saveTratta(tratta);
+		}
 //
-//		// Creazione/Salvataggio Officine
-//		List<Officina> officineList = new ArrayList<>();
-//		for (int i = 0; i < 5; i++) {
-//			LocalDate dataInizio = LocalDate.now().plusDays(random.nextInt(30) + 1);
-//			LocalDate dataFine = dataInizio.plusDays(random.nextInt(30) + 1);
-//			Officina officina = new Officina(dataInizio, dataFine);
-//			officineList.add(officina);
-//			of.saveOfficina(officina);
-//		}
+		// Creazione/Salvataggio Officine
+		List<Officina> officineList = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			LocalDate dataInizio = LocalDate.now().plusDays(random.nextInt(30) + 1);
+			LocalDate dataFine = dataInizio.plusDays(random.nextInt(30) + 1);
+			Officina officina = new Officina(dataInizio, dataFine);
+			officineList.add(officina);
+			of.saveOfficina(officina);
+		}
 //
-//		// Creazione/Salvataggio Distributori
-//		for (int i = 0; i < 5; i++) {
-//			String posizione = faker.address().city();
-//			boolean stato = faker.bool().bool();
-//			DistributoreAutomatico distributore = new DistributoreAutomatico(posizione, stato);
-//			dsa.saveDistributoreAutomatico(distributore);
-//		}
+		// Creazione/Salvataggio Distributori
+		for (int i = 0; i < 5; i++) {
+			String posizione = faker.address().city();
+			boolean stato = faker.bool().bool();
+			DistributoreAutomatico distributore = new DistributoreAutomatico(posizione, stato);
+			dsa.saveDistributoreAutomatico(distributore);
+		}
 //
-//		// Creazione/Salvataggio Mezzo
-//		List<Mezzo> mezzi = new ArrayList<>();
-//
-//		for (int i = 0; i < 5; i++) {
-//			TipoMezzo tipo = TipoMezzo.values()[random.nextInt(TipoMezzo.values().length)];
-//			StatoMezzo stato = StatoMezzo.values()[random.nextInt(StatoMezzo.values().length)];
-//			int capienza = random.nextInt(100) + 1;
-//			Tratta tratta = tratte.get(random.nextInt(tratte.size()));
-//			Officina officina = null;
-//
-//			if (stato == StatoMezzo.IN_SERVIZIO) {
-//				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta);
-//				mz.saveMezzo(mezzo);
-//				mezzi.add(mezzo);
-//			} else {
-//				officina = officineList.get(random.nextInt(officineList.size()));
-//				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta, officina);
-//				mz.saveMezzo(mezzo);
-//				mezzi.add(mezzo);
-//			}
-//		}
+		// Creazione/Salvataggio Mezzo
+		List<Mezzo> mezzi = new ArrayList<>();
+
+		for (int i = 0; i < 5; i++) {
+			TipoMezzo tipo = TipoMezzo.values()[random.nextInt(TipoMezzo.values().length)];
+			StatoMezzo stato = StatoMezzo.values()[random.nextInt(StatoMezzo.values().length)];
+			int capienza = random.nextInt(100) + 1;
+			Tratta tratta = tratte.get(random.nextInt(tratte.size()));
+			Officina officina = null;
+
+			if (stato == StatoMezzo.IN_SERVIZIO) {
+				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta);
+				mz.saveMezzo(mezzo);
+				mezzi.add(mezzo);
+			} else {
+				officina = officineList.get(random.nextInt(officineList.size()));
+				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta, officina);
+				mz.saveMezzo(mezzo);
+				mezzi.add(mezzo);
+			}
+		}
 //
 //		// Creazione/Salvataggio TrattePercorse
 //		List<Mezzo> mezzis = mz.getAllMezzi();
@@ -201,8 +199,6 @@ public class App {
 		System.out.println("6. Visualizza lista dei mezzi");
 		System.out.println("7. Visualizza tratta per mezzo");
 		System.out.println("8. Visualizza tempo per tratta");
-		System.out.println("9. Visualizza tratta del mezzo");
-
 
 		int sceltaUtente = scanner.nextInt();
 		scanner.nextLine();
@@ -215,29 +211,38 @@ public class App {
 		TesseraDAO ts = new TesseraDAO(em);
 		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
 		TrattaDAO tr = new TrattaDAO(em);
+		TrattePercorseDAO tps = new TrattePercorseDAO(em);
 
 		switch (sceltaUtente) {
 		case 1:
 			Biglietto ticket1 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
-					dsa.getDistributoreAutomaticoById(1200), null, ut.getUtenteById(1212), mz.getMezzoById(1205), TipoMezzo.TRAM);
+					dsa.getDistributoreAutomaticoById((long) 1200), null, ut.getUtenteById(1212), mz.getMezzoById(1205),
+					TipoMezzo.TRAM);
 			bg.acquistaBiglietto(ticket1);
 			break;
-		case 2:			
+		case 2:
 			Abbonamento abbonamento1 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
-					LocalDate.now().plusMonths(3), true, ts.getTesseraById(1183), rva.getRivenditoreAutorizzatoById(1179));
+					LocalDate.now().plusMonths(3), true, ts.getTesseraById(1183),
+					rva.getRivenditoreAutorizzatoById(1179));
 			ab.acquistaAbbonamento(abbonamento1);
 			break;
-		case 3:	
-				tr.getAllTratte();
+		case 3:
+			tr.getAllTratte();
 			break;
-		case 4:	
+		case 4:
 			rva.getAllRivenditoriAutorizzati();
 			break;
-		case 5:	
+		case 5:
 			dsa.getAllDistributoriAutomatici();
 			break;
-		case 6:	
+		case 6:
 			mz.getAllMezzi();
+			break;
+		case 7:
+			System.out.println(tps.findByMezzo((long) 767));
+			break;
+		case 8:
+			System.out.println(tps.findByTempoEffettivoSuperioreA((long) 125));
 			break;
 		default:
 			System.out.println("Scelta non valida. Uscita dall'applicazione.");
@@ -251,7 +256,7 @@ public class App {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println();
 		System.out.print("\n Benvenuto Amministratore, cosa vuoi fare? \n");
-		//Biglietti e Abbonamento
+		// Biglietti e Abbonamento
 		System.out.println("1. Emetti Biglietto");
 		System.out.println("2. Emetti Abbonamento");
 		System.out.println("3. Vidima Biglietto");
@@ -265,51 +270,76 @@ public class App {
 		System.out.println("12. Visualizza tutti abbonamenti");
 		System.out.println("13. Modifica abbonamento");
 		System.out.println("14. Cancella abbonamento \n");
-		
-		//Distributore
+
+		// Distributore
 		System.out.println("15. Modifica distributore");
 		System.out.println("16. Cancella un distributore \n");
-		
-		//Mezzo
+
+		// Mezzo
 		System.out.println("17. Visualizza lo stato del mezzo");
 		System.out.println("18. Visualizza mezzi in servizio");
 		System.out.println("19. Visualizza mezzi in manutenzione");
 		System.out.println("20. Modifica mezzo");
 		System.out.println("21. Cancella mezzo \n");
-		
-		//Officine
+
+		// Officine
 		System.out.println("22. Visualizza le officine disponibili");
 		System.out.println("23. Modifica officina");
 		System.out.println("24. Elimina officina \n");
-		
-		//Rivenditori
+
+		// Rivenditori
 		System.out.println("25. Modifica rivenditore");
 		System.out.println("26. Cancella rivenditore \n");
-		
-		//Tessera
+
+		// Tessera
 		System.out.println("27. Visualizza tessere disponibili");
 		System.out.println("28. Modifica tessera");
 		System.out.println("29. Cancella tessera \n");
-		
-		//Tratta
+
+		// Tratta
 		System.out.println("30. Modifica tratta");
 		System.out.println("31. Cancella tratta \n");
-		
-		//Utente
+
+		// Utente
 		System.out.println("32. Visualizza tutti gli utenti");
 		System.out.println("33. Modifica utente");
 		System.out.println("34. Cancella utente \n");
 
-		
+		EntityManager em = emf.createEntityManager();
+		BigliettoDAO bg = new BigliettoDAO(em);
+		DistributoreAutomaticoDAO dsa = new DistributoreAutomaticoDAO(em);
+		UtenteDAO ut = new UtenteDAO(em);
+		MezzoDAO mz = new MezzoDAO(em);
+		AbbonamentoDAO ab = new AbbonamentoDAO(em);
+		TesseraDAO ts = new TesseraDAO(em);
+		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
+		TrattaDAO tr = new TrattaDAO(em);
+		TrattePercorseDAO tps = new TrattePercorseDAO(em);
+
+		Biglietto ticket2 = null; // Dichiarazione di ticket2 al di fuori del switch
+
 		int sceltaAmministratore = scanner.nextInt();
 		scanner.nextLine();
 
 		switch (sceltaAmministratore) {
 		case 1:
-			
+			ticket2 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
+					dsa.getDistributoreAutomaticoById((long) 762), null, ut.getUtenteById(1212), mz.getMezzoById(1205),
+					TipoMezzo.TRAM);
+			bg.emettiBiglietto(ticket2);
 			break;
 		case 2:
-
+			Abbonamento abbonamento2 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
+					LocalDate.now().plusMonths(3), true, ts.getTesseraById(1183),
+					rva.getRivenditoreAutorizzatoById(1179));
+			ab.emettiAbbonamento(abbonamento2);
+			break;
+		case 3:
+			if (ticket2 != null) {
+				bg.vidimaBiglietto(ticket2);
+			} else {
+				System.out.println("Prima devi acquistare un biglietto.");
+			}
 			break;
 		default:
 			System.out.println("Scelta non valida. Uscita dall'applicazione.");
@@ -320,16 +350,6 @@ public class App {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
 
 //		RivenditoreAutorizzato rivenditore1 = new RivenditoreAutorizzato(faker.company().name(), faker.address().fullAddress());
 //	    RivenditoreAutorizzato rivenditore2 = new RivenditoreAutorizzato(faker.company().name(), faker.address().fullAddress());
