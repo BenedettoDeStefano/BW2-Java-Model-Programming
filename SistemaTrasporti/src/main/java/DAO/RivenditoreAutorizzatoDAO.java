@@ -32,7 +32,7 @@ public class RivenditoreAutorizzatoDAO {
         }
     }
 
-    public RivenditoreAutorizzato getRivenditoreAutorizzatoById(Long id) {
+    public RivenditoreAutorizzato getRivenditoreAutorizzatoById(int id) {
         try {
             return em.find(RivenditoreAutorizzato.class, id);
         } catch (Exception e) {

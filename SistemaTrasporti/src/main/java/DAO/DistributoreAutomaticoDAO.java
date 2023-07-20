@@ -34,7 +34,7 @@ public class DistributoreAutomaticoDAO {
 		}
 	}
 
-	public DistributoreAutomatico getDistributoreAutomaticoById(Long id) {
+	public DistributoreAutomatico getDistributoreAutomaticoById(int id) {
 		try {
 			return em.find(DistributoreAutomatico.class, id);
 		} catch (Exception e) {
@@ -79,27 +79,27 @@ public class DistributoreAutomaticoDAO {
 		}
 	}
 
-	public DistributoreAutomatico getDistributoreAutomaticoCasuale() {
-		try {
-			// Esegui una query per ottenere tutti gli ID dei distributori presenti nel
-			// database
-			TypedQuery<Long> query = em.createQuery("SELECT d.id FROM DistributoreAutomatico d", Long.class);
-			List<Long> distributoriIds = query.getResultList();
-
-			// Genera un numero casuale tra 0 e la dimensione della lista degli ID
-			Random random = new Random();
-			int randomIndex = random.nextInt(distributoriIds.size());
-
-			// Ottieni l'ID casuale dalla lista degli ID
-			Long distributoreIdCasuale = distributoriIds.get(randomIndex);
-
-			// Utilizza l'ID casuale per recuperare il distributore corrispondente dal
-			// database
-			return em.find(DistributoreAutomatico.class, distributoreIdCasuale);
-		} catch (Exception e) {
-			log.error("Errore durante il recupero del distributore automatico casuale: " + e.getMessage());
-			return null;
-		}
-	}
+//	public DistributoreAutomatico getDistributoreAutomaticoCasuale() {
+//		try {
+//			// Esegui una query per ottenere tutti gli ID dei distributori presenti nel
+//			// database
+//			TypedQuery<Long> query = em.createQuery("SELECT d.id FROM DistributoreAutomatico d", Long.class);
+//			List<Long> distributoriIds = query.getResultList();
+//
+//			// Genera un numero casuale tra 0 e la dimensione della lista degli ID
+//			Random random = new Random();
+//			int randomIndex = random.nextInt(distributoriIds.size());
+//
+//			// Ottieni l'ID casuale dalla lista degli ID
+//			Long distributoreIdCasuale = distributoriIds.get(randomIndex);
+//
+//			// Utilizza l'ID casuale per recuperare il distributore corrispondente dal
+//			// database
+//			return em.find(DistributoreAutomatico.class, distributoreIdCasuale);
+//		} catch (Exception e) {
+//			log.error("Errore durante il recupero del distributore automatico casuale: " + e.getMessage());
+//			return null;
+//		}
+//	}
 
 }

@@ -25,6 +25,7 @@ import DAO.TesseraDAO;
 import DAO.TrattaDAO;
 import DAO.TrattePercorseDAO;
 import DAO.UtenteDAO;
+import Entities.Abbonamento;
 import Entities.Biglietto;
 import Entities.DistributoreAutomatico;
 import Entities.Mezzo;
@@ -35,6 +36,7 @@ import Entities.Tratta;
 import Entities.TrattePercorse;
 import Entities.Utente;
 import Enum.StatoMezzo;
+import Enum.TipoAbbonamento;
 import Enum.TipoBiglietto;
 import Enum.TipoMezzo;
 
@@ -206,19 +208,20 @@ public class App {
 		DistributoreAutomaticoDAO dsa = new DistributoreAutomaticoDAO(em);
 		UtenteDAO ut = new UtenteDAO(em);
 		MezzoDAO mz = new MezzoDAO(em);
+		AbbonamentoDAO ab = new AbbonamentoDAO(em);
+		TesseraDAO ts = new TesseraDAO(em);
+		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
 
 		switch (sceltaUtente) {
 		case 1:
-			DistributoreAutomatico distributore = dsa.getDistributoreAutomaticoCasuale();
-			Utente user1 = ut.getUtenteCasuale();
-			Mezzo mezzo1 = mz.getMezzoById(1205);
-
 			Biglietto ticket1 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
-					distributore, null, user1, mezzo1, TipoMezzo.TRAM);
+					dsa.getDistributoreAutomaticoById(1200), null, ut.getUtenteById(1212), mz.getMezzoById(1205), TipoMezzo.TRAM);
 			bg.acquistaBiglietto(ticket1);
 			break;
-		case 2:
-
+		case 2:			
+			Abbonamento abbonamento1 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
+					LocalDate.now().plusMonths(3), true, ts.getTesseraById(1183), rva.getRivenditoreAutorizzatoById(1179));
+			ab.acquistaAbbonamento(abbonamento1);
 			break;
 		default:
 			System.out.println("Scelta non valida. Uscita dall'applicazione.");

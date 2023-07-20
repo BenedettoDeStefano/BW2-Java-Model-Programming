@@ -21,7 +21,7 @@ public class RivenditoreAutorizzato {
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	private int id;
 	
 	@Column(name = "nome_rivenditore")
 	private String nome;

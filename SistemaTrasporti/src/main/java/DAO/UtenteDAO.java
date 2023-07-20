@@ -98,7 +98,7 @@ public class UtenteDAO {
 		}
 	}
 
-	public Utente getUtenteById(Long id) {
+	public Utente getUtenteById(int id) {
 
 		try {
 			log.info("Utente trovato con id" + id);
@@ -108,27 +108,27 @@ public class UtenteDAO {
 		}
 	}
 
-	public Utente getUtenteCasuale() {
-		try {
-			// Esegui una query per ottenere tutti gli ID dei distributori presenti nel
-			// database
-			TypedQuery<Long> query = em.createQuery("SELECT d.id FROM Utente d", Long.class);
-			List<Long> utenteIds = query.getResultList();
-
-			// Genera un numero casuale tra 0 e la dimensione della lista degli ID
-			Random random = new Random();
-			int randomIndex = random.nextInt(utenteIds.size());
-
-			// Ottieni l'ID casuale dalla lista degli ID
-			Long utenteIdCasuale = utenteIds.get(randomIndex);
-
-			// Utilizza l'ID casuale per recuperare il distributore corrispondente dal
-			// database
-			return em.find(Utente.class, utenteIdCasuale);
-		} catch (Exception e) {
-			log.error("Errore durante il recupero dell'utente casuale: " + e.getMessage());
-			return null;
-		}
-	}
+//	public Utente getUtenteCasuale() {
+//		try {
+//			// Esegui una query per ottenere tutti gli ID dei distributori presenti nel
+//			// database
+//			TypedQuery<Long> query = em.createQuery("SELECT d.id FROM Utente d", Long.class);
+//			List<Long> utenteIds = query.getResultList();
+//
+//			// Genera un numero casuale tra 0 e la dimensione della lista degli ID
+//			Random random = new Random();
+//			int randomIndex = random.nextInt(utenteIds.size());
+//
+//			// Ottieni l'ID casuale dalla lista degli ID
+//			Long utenteIdCasuale = utenteIds.get(randomIndex);
+//
+//			// Utilizza l'ID casuale per recuperare il distributore corrispondente dal
+//			// database
+//			return em.find(Utente.class, utenteIdCasuale);
+//		} catch (Exception e) {
+//			log.error("Errore durante il recupero dell'utente casuale: " + e.getMessage());
+//			return null;
+//		}
+//	}
 
 }

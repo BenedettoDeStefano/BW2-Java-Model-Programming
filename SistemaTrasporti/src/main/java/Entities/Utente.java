@@ -21,7 +21,7 @@ import lombok.ToString;
 public class Utente {
 	@Id
 	@GeneratedValue
-	private Long id;
+	private int id;
 	private String Nome;
 	private String Cognome;
 	
