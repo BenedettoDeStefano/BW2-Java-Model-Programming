@@ -102,5 +102,17 @@ public class BigliettoDAO {
              log.error("Errore durante l'eliminazione del biglietto", e);
          }
      }
+         
+         public void acquistaBiglietto(Biglietto biglietto) {
+             EntityTransaction t = em.getTransaction();
+             t.begin();
 
+             em.persist(biglietto);
+
+             t.commit();
+             log.info("Biglietto acquistato e salvato correttamente");      
+     
+     }
+
+     
 }

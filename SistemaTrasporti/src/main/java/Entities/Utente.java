@@ -33,10 +33,10 @@ public class Utente {
 	
 	
 	
-	public Utente(String _nome, String _cognome, Tessera _tessera , List<Biglietto> biglietti) {
-		this.Nome = _nome;
-		this.Cognome = _cognome;
-		this.biglietti = biglietti;
+	public Utente(String nome, String cognome, Tessera tessera) {
+		this.Nome = nome;
+		this.Cognome = cognome;
+		this.tessera = tessera;
 	}
 	
 

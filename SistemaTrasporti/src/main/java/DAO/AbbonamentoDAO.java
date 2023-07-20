@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.jboss.logging.Logger;
 
 import Entities.Abbonamento;
+import Entities.Biglietto;
 import Entities.Tessera;
 import Enum.TipoAbbonamento;
 
@@ -104,5 +105,19 @@ public class AbbonamentoDAO {
 		log.info("Lista di abbonamenti per la tessera: " + tessera + " -> " + abbonamenti);
 		return abbonamenti;
 	}
+	
+	
+
+	public void acquistaAbbonamento(Abbonamento abbonamento) {
+		EntityTransaction t = em.getTransaction();
+		t.begin();
+
+		em.persist(abbonamento);
+
+		t.commit();
+		log.info("Abbonamento acquistato e salvato correttamente");      
+
+	}
+
 
 }
