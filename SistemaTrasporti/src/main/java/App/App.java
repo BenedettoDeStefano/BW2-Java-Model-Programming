@@ -25,6 +25,7 @@ import DAO.TesseraDAO;
 import DAO.TrattaDAO;
 import DAO.TrattePercorseDAO;
 import DAO.UtenteDAO;
+import Entities.Biglietto;
 import Entities.DistributoreAutomatico;
 import Entities.Mezzo;
 import Entities.Officina;
@@ -32,6 +33,7 @@ import Entities.RivenditoreAutorizzato;
 import Entities.Tessera;
 import Entities.Tratta;
 import Entities.TrattePercorse;
+import Entities.Utente;
 import Enum.StatoMezzo;
 import Enum.TipoMezzo;
 
@@ -55,8 +57,10 @@ public class App {
 		TrattePercorseDAO tpd = new TrattePercorseDAO(em);
 		MezzoDAO mz = new MezzoDAO(em);
 		UtenteDAO ut = new UtenteDAO(em);
-		AbbonamentoDAO ab = new AbbonamentoDAO(em);
-		BigliettoDAO bg = new BigliettoDAO(em);
+//		AbbonamentoDAO ab = new AbbonamentoDAO(em);
+//		BigliettoDAO bg = new BigliettoDAO(em);
+		
+		
 
 		// Creazione e salvataggio dei rivenditori autorizzati
 		for (int i = 0; i < 5; i++) {
@@ -137,12 +141,112 @@ public class App {
 			tratta.addTrattePercorse(trattePercorse);
 			tpd.save(trattePercorse);
 		}
+		
+		
+		// Creazione/Salvataggio Utenti tramite scanner
+		List<Tessera> tessere = ts.getAllTessere();
+		System.out.println();
+		System.err.println(" \n Crea 3 utenti:");
+		
+		for (int i = 1; i < 4; i++) {
+	        System.out.print("Inserisci il nome dell'utente " + i + " ");
+	        String nome = scanner.nextLine();
 
+	        System.out.print("Inserisci il cognome dell'utente " + i + " ");
+	        String cognome = scanner.nextLine();
+
+	        int randomIndex = random.nextInt(tessere.size());
+	        Tessera tesseraRecuperataCasualmente = tessere.get(randomIndex);
+	        tessere.remove(randomIndex); 
+
+	        Utente utente = new Utente(nome, cognome, tesseraRecuperataCasualmente);
+	        ut.salvaUtente(utente);
+	        System.out.println(utente);
+	    }
+		
+		// Scelta tra Utente e Amministratore
+	    System.out.println("\n -----------------------Seleziona il tuo ruolo:-----------------------");
+	    System.out.println("1. Utente");
+	    System.out.println("2. Amministratore");
+	    System.err.print("Inserisci il numero corrispondente al tuo ruolo: ");
+	    int scelta = scanner.nextInt();
+	    scanner.nextLine(); 
+
+	    switch (scelta) {
+	        case 1:
+	           accessoUtente();
+	            break;
+	        case 2:
+	            accessoAmministratore();
+	            break;
+	        default:
+	            System.out.println("Scelta non valida. Uscita dall'applicazione.");
+	            break;
+	    }
+
+
+	    scanner.close();
 		em.close();
 		emf.close();
 	}
+	
+	public static void accessoUtente() {
+	    Scanner scanner = new Scanner(System.in);
+	    System.out.println();
+	    System.out.print("\n Benvenuto Utente, cosa vuoi fare? \n");
+	    System.out.println("1. Acquista Biglietto");
+	    System.out.println("2. Acquista Abbonamento");
+	    System.out.println("3. Cerca tratta");
+	    System.out.println("4. Visualizza tratte disponibili");
+	    System.out.println("5. Visualizza rivenditori autorizzati");
+	    System.out.println("6. Visualizza distributori disponibili");
+	    System.out.println("7. Visualizza lista dei mezzi");	
+	    
+	    int sceltaUtente = scanner.nextInt();
+	    scanner.nextLine();
+	    
+
+	    switch (sceltaUtente) {
+	        case 1:
+	            break;
+	        case 2:
+	           
+	            break;
+	        default:
+	            System.out.println("Scelta non valida. Uscita dall'applicazione.");
+	            break;
+	    }
+
+	    scanner.close();
+	}
+
+	public static void accessoAmministratore() {
+	    Scanner scanner = new Scanner(System.in);
+	    System.out.println();
+	    System.out.print("\n Benvenuto Amministratore, cosa vuoi fare? \n");
+	        
+	   
+	    int sceltaAmministratore = scanner.nextInt();
+	    scanner.nextLine();
+
+	    switch (sceltaAmministratore) {
+	        case 1:
+	            
+	            break;
+	        case 2:
+	            
+	            break;
+	        default:
+	            System.out.println("Scelta non valida. Uscita dall'applicazione.");
+	            break;
+	    }
+
+	    scanner.close();
+	}
+
 
 }
+
 
 
 

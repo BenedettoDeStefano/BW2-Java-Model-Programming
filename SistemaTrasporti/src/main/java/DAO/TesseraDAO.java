@@ -98,7 +98,7 @@ public class TesseraDAO {
 		}
 	}
 	
-	public Tessera getTesseraById(Long id) {
+	public Tessera getTesseraById(int id) {
 	    try {
 	        log.info("Tessera trovata con id" + id);
 	        return em.find(Tessera.class, id);

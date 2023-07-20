@@ -33,7 +33,7 @@ public class UtenteDAO {
 			
 			transaction.commit();
 			
-			log.info("Utente salvato nel databse correttamente");
+			log.info("Utente salvato correttamente nel database, *è stato assegnato un numero di tessera*");
 		}catch (Exception e){
 			if (transaction != null) 
 				transaction.rollback();

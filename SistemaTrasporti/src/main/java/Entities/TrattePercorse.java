@@ -20,7 +20,7 @@ public class TrattePercorse {
 
 	@Id
 	@GeneratedValue
-	private Long codiceTratta;
+	private Long Id;
 
 	private Long codiceStorico;
 	private int tempoEffettivo;

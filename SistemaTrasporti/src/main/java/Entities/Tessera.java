@@ -1,7 +1,7 @@
 package Entities;
 
 import java.time.LocalDate;
-import java.util.UUID;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +24,7 @@ public class Tessera {
 	
 	@Id
 	@GeneratedValue 
-	private UUID id;
+	private Long id;
 	
 	private Long numeroTessera;
 	
