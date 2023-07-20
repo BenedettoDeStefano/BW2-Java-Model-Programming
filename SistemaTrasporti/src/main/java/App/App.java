@@ -1,8 +1,6 @@
 package App;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
@@ -15,26 +13,15 @@ import org.jboss.logging.Logger;
 
 import com.github.javafaker.Faker;
 
-import DAO.AbbonamentoDAO;
 import DAO.BigliettoDAO;
 import DAO.DistributoreAutomaticoDAO;
 import DAO.MezzoDAO;
-import DAO.OfficinaDAO;
-import DAO.RivenditoreAutorizzatoDAO;
-import DAO.TesseraDAO;
-import DAO.TrattaDAO;
-import DAO.TrattePercorseDAO;
 import DAO.UtenteDAO;
 import Entities.Biglietto;
 import Entities.DistributoreAutomatico;
 import Entities.Mezzo;
-import Entities.Officina;
-import Entities.RivenditoreAutorizzato;
-import Entities.Tessera;
-import Entities.Tratta;
-import Entities.TrattePercorse;
 import Entities.Utente;
-import Enum.StatoMezzo;
+import Enum.TipoBiglietto;
 import Enum.TipoMezzo;
 
 public class App {
@@ -49,218 +36,208 @@ public class App {
 		Faker faker = new Faker(new Locale("it"));
 		Random random = new Random();
 
-		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
-		TesseraDAO ts = new TesseraDAO(em);
-		TrattaDAO tr = new TrattaDAO(em);
-		OfficinaDAO of = new OfficinaDAO(em);
-		DistributoreAutomaticoDAO dsa = new DistributoreAutomaticoDAO(em);
-		TrattePercorseDAO tpd = new TrattePercorseDAO(em);
-		MezzoDAO mz = new MezzoDAO(em);
-		UtenteDAO ut = new UtenteDAO(em);
+//		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
+//		TesseraDAO ts = new TesseraDAO(em);
+//		TrattaDAO tr = new TrattaDAO(em);
+//		OfficinaDAO of = new OfficinaDAO(em);
+//		DistributoreAutomaticoDAO dsa = new DistributoreAutomaticoDAO(em);
+//		TrattePercorseDAO tpd = new TrattePercorseDAO(em);
+//		MezzoDAO mz = new MezzoDAO(em);
+//		UtenteDAO ut = new UtenteDAO(em);
 //		AbbonamentoDAO ab = new AbbonamentoDAO(em);
 //		BigliettoDAO bg = new BigliettoDAO(em);
-		
-		
 
-		// Creazione e salvataggio dei rivenditori autorizzati
-		for (int i = 0; i < 5; i++) {
-			RivenditoreAutorizzato rivenditore = new RivenditoreAutorizzato(faker.company().name(),
-					faker.address().fullAddress());
-			rva.saveRivenditoreAutorizzato(rivenditore);
-		}
-
-		// Creazione/Salvataggio Tessere
-		for (int i = 0; i < 5; i++) {
-			LocalDate dataScadenza = LocalDate.now().plusMonths(i + 1);
-			Long codiceTessera = random.nextLong();
-			Tessera tessera = new Tessera(dataScadenza, codiceTessera);
-			ts.salvaTessera(tessera);
-		}
-
-		// Creazione/Salvataggio Tratta
-		List<Tratta> tratte = new ArrayList<>();
-		for (int i = 0; i < 5; i++) {
-			String partenza = faker.address().city();
-			String capolinea = faker.address().city();
-			Tratta tratta = new Tratta(partenza, capolinea);
-			tratte.add(tratta);
-			tr.saveTratta(tratta);
-		}
-
-		// Creazione/Salvataggio Officine
-		List<Officina> officineList = new ArrayList<>();
-		for (int i = 0; i < 5; i++) {
-			LocalDate dataInizio = LocalDate.now().plusDays(random.nextInt(30) + 1);
-			LocalDate dataFine = dataInizio.plusDays(random.nextInt(30) + 1);
-			Officina officina = new Officina(dataInizio, dataFine);
-			officineList.add(officina);
-			of.saveOfficina(officina);
-		}
-
-		// Creazione/Salvataggio Distributori
-		for (int i = 0; i < 5; i++) {
-			String posizione = faker.address().city();
-			boolean stato = faker.bool().bool();
-			DistributoreAutomatico distributore = new DistributoreAutomatico(posizione, stato);
-			dsa.saveDistributoreAutomatico(distributore);
-		}
-
-		// Creazione/Salvataggio Mezzo
-		List<Mezzo> mezzi = new ArrayList<>();
-
-		for (int i = 0; i < 5; i++) {
-			TipoMezzo tipo = TipoMezzo.values()[random.nextInt(TipoMezzo.values().length)];
-			StatoMezzo stato = StatoMezzo.values()[random.nextInt(StatoMezzo.values().length)];
-			int capienza = random.nextInt(100) + 1;
-			Tratta tratta = tratte.get(random.nextInt(tratte.size()));
-			Officina officina = null;
-
-			if (stato == StatoMezzo.IN_SERVIZIO) {
-				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta);
-				mz.saveMezzo(mezzo);
-				mezzi.add(mezzo); 
-			} else {
-				officina = officineList.get(random.nextInt(officineList.size()));
-				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta, officina);
-				mz.saveMezzo(mezzo);
-				mezzi.add(mezzo); 
-			}
-		}
-
-		// Creazione/Salvataggio TrattePercorse
-		List<Mezzo> mezzis = mz.getAllMezzi();
-		List<Tratta> trattes = tr.getAllTratte();
-
-		for (int i = 0; i < 5; i++) {
-			long codiceStorico = random.nextLong(1000) + 1;
-			int tempoEffettivo = random.nextInt(200) + 1;
-			Mezzo mezzo = mezzi.get(random.nextInt(mezzi.size()));
-			Tratta tratta = trattes.get(random.nextInt(trattes.size()));
-			TrattePercorse trattePercorse = new TrattePercorse(codiceStorico, tempoEffettivo, mezzo, tratta);
-			mezzo.addTrattePercorse(trattePercorse);
-			tratta.addTrattePercorse(trattePercorse);
-			tpd.save(trattePercorse);
-		}
-		
-		
-		// Creazione/Salvataggio Utenti tramite scanner
-		List<Tessera> tessere = ts.getAllTessere();
-		System.out.println();
-		System.err.println(" \n Crea 3 utenti:");
-		
-		for (int i = 1; i < 4; i++) {
-	        System.out.print("Inserisci il nome dell'utente " + i + " ");
-	        String nome = scanner.nextLine();
-
-	        System.out.print("Inserisci il cognome dell'utente " + i + " ");
-	        String cognome = scanner.nextLine();
-
-	        int randomIndex = random.nextInt(tessere.size());
-	        Tessera tesseraRecuperataCasualmente = tessere.get(randomIndex);
-	        tessere.remove(randomIndex); 
-
-	        Utente utente = new Utente(nome, cognome, tesseraRecuperataCasualmente);
-	        ut.salvaUtente(utente);
-	        System.out.println(utente);
-	    }
-		
-		// Scelta tra Utente e Amministratore
-	    System.out.println("\n -----------------------Seleziona il tuo ruolo:-----------------------");
-	    System.out.println("1. Utente");
-	    System.out.println("2. Amministratore");
-	    System.err.print("Inserisci il numero corrispondente al tuo ruolo: ");
-	    int scelta = scanner.nextInt();
-	    scanner.nextLine(); 
-
-	    switch (scelta) {
-	        case 1:
-	           accessoUtente();
-	            break;
-	        case 2:
-	            accessoAmministratore();
-	            break;
-	        default:
-	            System.out.println("Scelta non valida. Uscita dall'applicazione.");
-	            break;
-	    }
-
-
-	    scanner.close();
-		em.close();
-		emf.close();
+//		// Creazione e salvataggio dei rivenditori autorizzati
+//		for (int i = 0; i < 5; i++) {
+//			RivenditoreAutorizzato rivenditore = new RivenditoreAutorizzato(faker.company().name(),
+//					faker.address().fullAddress());
+//			rva.saveRivenditoreAutorizzato(rivenditore);
+//		}
+//
+//		// Creazione/Salvataggio Tessere
+//		for (int i = 0; i < 5; i++) {
+//			LocalDate dataScadenza = LocalDate.now().plusMonths(i + 1);
+//			Long codiceTessera = random.nextLong();
+//			Tessera tessera = new Tessera(dataScadenza, codiceTessera);
+//			ts.salvaTessera(tessera);
+//		}
+//
+//		// Creazione/Salvataggio Tratta
+//		List<Tratta> tratte = new ArrayList<>();
+//		for (int i = 0; i < 5; i++) {
+//			String partenza = faker.address().city();
+//			String capolinea = faker.address().city();
+//			Tratta tratta = new Tratta(partenza, capolinea);
+//			tratte.add(tratta);
+//			tr.saveTratta(tratta);
+//		}
+//
+//		// Creazione/Salvataggio Officine
+//		List<Officina> officineList = new ArrayList<>();
+//		for (int i = 0; i < 5; i++) {
+//			LocalDate dataInizio = LocalDate.now().plusDays(random.nextInt(30) + 1);
+//			LocalDate dataFine = dataInizio.plusDays(random.nextInt(30) + 1);
+//			Officina officina = new Officina(dataInizio, dataFine);
+//			officineList.add(officina);
+//			of.saveOfficina(officina);
+//		}
+//
+//		// Creazione/Salvataggio Distributori
+//		for (int i = 0; i < 5; i++) {
+//			String posizione = faker.address().city();
+//			boolean stato = faker.bool().bool();
+//			DistributoreAutomatico distributore = new DistributoreAutomatico(posizione, stato);
+//			dsa.saveDistributoreAutomatico(distributore);
+//		}
+//
+//		// Creazione/Salvataggio Mezzo
+//		List<Mezzo> mezzi = new ArrayList<>();
+//
+//		for (int i = 0; i < 5; i++) {
+//			TipoMezzo tipo = TipoMezzo.values()[random.nextInt(TipoMezzo.values().length)];
+//			StatoMezzo stato = StatoMezzo.values()[random.nextInt(StatoMezzo.values().length)];
+//			int capienza = random.nextInt(100) + 1;
+//			Tratta tratta = tratte.get(random.nextInt(tratte.size()));
+//			Officina officina = null;
+//
+//			if (stato == StatoMezzo.IN_SERVIZIO) {
+//				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta);
+//				mz.saveMezzo(mezzo);
+//				mezzi.add(mezzo);
+//			} else {
+//				officina = officineList.get(random.nextInt(officineList.size()));
+//				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta, officina);
+//				mz.saveMezzo(mezzo);
+//				mezzi.add(mezzo);
+//			}
+//		}
+//
+//		// Creazione/Salvataggio TrattePercorse
+//		List<Mezzo> mezzis = mz.getAllMezzi();
+//		List<Tratta> trattes = tr.getAllTratte();
+//
+//		for (int i = 0; i < 5; i++) {
+//			long codiceStorico = random.nextLong(1000) + 1;
+//			int tempoEffettivo = random.nextInt(200) + 1;
+//			Mezzo mezzo = mezzi.get(random.nextInt(mezzi.size()));
+//			Tratta tratta = trattes.get(random.nextInt(trattes.size()));
+//			TrattePercorse trattePercorse = new TrattePercorse(codiceStorico, tempoEffettivo, mezzo, tratta);
+//			mezzo.addTrattePercorse(trattePercorse);
+//			tratta.addTrattePercorse(trattePercorse);
+//			tpd.save(trattePercorse);
+//		}
+//
+//		// Creazione/Salvataggio Utenti tramite scanner
+//		List<Tessera> tessere = ts.getAllTessere();
+//		System.out.println();
+//		System.err.println(" \n Crea 3 utenti:");
+//
+//		for (int i = 1; i < 4; i++) {
+//			System.out.print("Inserisci il nome dell'utente " + i + " ");
+//			String nome = scanner.nextLine();
+//
+//			System.out.print("Inserisci il cognome dell'utente " + i + " ");
+//			String cognome = scanner.nextLine();
+//
+//			int randomIndex = random.nextInt(tessere.size());
+//			Tessera tesseraRecuperataCasualmente = tessere.get(randomIndex);
+//			tessere.remove(randomIndex);
+//
+//			Utente utente = new Utente(nome, cognome, tesseraRecuperataCasualmente);
+//			ut.salvaUtente(utente);
+//			System.out.println(utente);
+//		}
+//
+//		// Scelta tra Utente e Amministratore
+//		System.out.println("\n -----------------------Seleziona il tuo ruolo:-----------------------");
+//		System.out.println("1. Utente");
+//		System.out.println("2. Amministratore");
+//		System.err.print("Inserisci il numero corrispondente al tuo ruolo: ");
+//		int scelta = scanner.nextInt();
+//		scanner.nextLine();
+//
+//		switch (scelta) {
+//		case 1:
+//			accessoUtente();
+//			break;
+//		case 2:
+//			accessoAmministratore();
+//			break;
+//		default:
+//			System.out.println("Scelta non valida. Uscita dall'applicazione.");
+//			break;
+//		}
+//
+//		scanner.close();
+//		em.close();
+//		emf.close();
 	}
-	
+
 	public static void accessoUtente() {
-	    Scanner scanner = new Scanner(System.in);
-	    System.out.println();
-	    System.out.print("\n Benvenuto Utente, cosa vuoi fare? \n");
-	    System.out.println("1. Acquista Biglietto");
-	    System.out.println("2. Acquista Abbonamento");
-	    System.out.println("3. Cerca tratta");
-	    System.out.println("4. Visualizza tratte disponibili");
-	    System.out.println("5. Visualizza rivenditori autorizzati");
-	    System.out.println("6. Visualizza distributori disponibili");
-	    System.out.println("7. Visualizza lista dei mezzi");	
-	    
-	    int sceltaUtente = scanner.nextInt();
-	    scanner.nextLine();
-	    
+		Scanner scanner = new Scanner(System.in);
+		System.out.println();
+		System.out.print("\n Benvenuto Utente, cosa vuoi fare? \n");
+		System.out.println("1. Acquista Biglietto");
+		System.out.println("2. Acquista Abbonamento");
+		System.out.println("3. Cerca tratta");
+		System.out.println("4. Visualizza tratte disponibili");
+		System.out.println("5. Visualizza rivenditori autorizzati");
+		System.out.println("6. Visualizza distributori disponibili");
+		System.out.println("7. Visualizza lista dei mezzi");
 
-	    switch (sceltaUtente) {
-	        case 1:
-	            break;
-	        case 2:
-	           
-	            break;
-	        default:
-	            System.out.println("Scelta non valida. Uscita dall'applicazione.");
-	            break;
-	    }
+		int sceltaUtente = scanner.nextInt();
+		scanner.nextLine();
+		EntityManager em = emf.createEntityManager();
+		BigliettoDAO bg = new BigliettoDAO(em);
+		DistributoreAutomaticoDAO dsa = new DistributoreAutomaticoDAO(em);
+		UtenteDAO ut = new UtenteDAO(em);
+		MezzoDAO mz = new MezzoDAO(em);
 
-	    scanner.close();
+		switch (sceltaUtente) {
+		case 1:
+			DistributoreAutomatico distributore = dsa.getDistributoreAutomaticoCasuale();
+			Utente user1 = ut.getUtenteCasuale();
+			Mezzo mezzo1 = mz.getMezzoById(608);
+
+			Biglietto ticket1 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
+					distributore, null, user1, mezzo1, TipoMezzo.TRAM);
+			bg.acquistaBiglietto(ticket1);
+			break;
+		case 2:
+
+			break;
+		default:
+			System.out.println("Scelta non valida. Uscita dall'applicazione.");
+			break;
+		}
+
+		scanner.close();
 	}
 
 	public static void accessoAmministratore() {
-	    Scanner scanner = new Scanner(System.in);
-	    System.out.println();
-	    System.out.print("\n Benvenuto Amministratore, cosa vuoi fare? \n");
-	        
-	   
-	    int sceltaAmministratore = scanner.nextInt();
-	    scanner.nextLine();
+		Scanner scanner = new Scanner(System.in);
+		System.out.println();
+		System.out.print("\n Benvenuto Amministratore, cosa vuoi fare? \n");
 
-	    switch (sceltaAmministratore) {
-	        case 1:
-	            
-	            break;
-	        case 2:
-	            
-	            break;
-	        default:
-	            System.out.println("Scelta non valida. Uscita dall'applicazione.");
-	            break;
-	    }
+		int sceltaAmministratore = scanner.nextInt();
+		scanner.nextLine();
 
-	    scanner.close();
+		switch (sceltaAmministratore) {
+		case 1:
+
+			break;
+		case 2:
+
+			break;
+		default:
+			System.out.println("Scelta non valida. Uscita dall'applicazione.");
+			break;
+		}
+
+		scanner.close();
 	}
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //		RivenditoreAutorizzato rivenditore1 = new RivenditoreAutorizzato(faker.company().name(), faker.address().fullAddress());
 //	    RivenditoreAutorizzato rivenditore2 = new RivenditoreAutorizzato(faker.company().name(), faker.address().fullAddress());
