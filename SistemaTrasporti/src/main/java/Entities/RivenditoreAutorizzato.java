@@ -16,7 +16,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class RivenditoreAutorizzato {
 	
 	@Id
@@ -31,6 +30,11 @@ public class RivenditoreAutorizzato {
 	public RivenditoreAutorizzato(String nome ,String indirizzo) {
 		this.nome = nome;
 		this.indirizzo = indirizzo;
+	}
+
+	@Override
+	public String toString() {
+		return "RivenditoreAutorizzato [nome=" + nome + ", indirizzo=" + indirizzo + "]";
 	}
 	
 	

@@ -42,7 +42,7 @@ public class TrattaDAO {
 	public List<Tratta> getAllTratte() {
 		TypedQuery<Tratta> query = em.createQuery("SELECT t FROM Tratta t", Tratta.class);
 		List<Tratta> tratte = query.getResultList();
-		log.info("Lista di tutte le tratte presenti nel database: " + tratte);
+		log.info("Lista di tutte le tratte presenti nel database: \n" + tratte);
 		return tratte;
 	}
 

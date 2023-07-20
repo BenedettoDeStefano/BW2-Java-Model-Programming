@@ -73,6 +73,6 @@ public class Mezzo {
 
 	@Override
 	public String toString() {
-	    return "Mezzo: Tipo = " + tipo + ", Stato = " + stato + ", Capienza = " + capienza;
+	    return "Mezzo: Tipo = " + tipo + ", Stato = " + stato + ", Capienza = " + capienza + "\n";
 	}
 }

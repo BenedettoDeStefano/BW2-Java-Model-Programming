@@ -195,11 +195,10 @@ public class App {
 		System.out.print("\n Benvenuto Utente, cosa vuoi fare? \n");
 		System.out.println("1. Acquista Biglietto");
 		System.out.println("2. Acquista Abbonamento");
-		System.out.println("3. Cerca tratta");
-		System.out.println("4. Visualizza tratte disponibili");
-		System.out.println("5. Visualizza rivenditori autorizzati");
-		System.out.println("6. Visualizza distributori disponibili");
-		System.out.println("7. Visualizza lista dei mezzi");
+		System.out.println("3. Visualizza tratte disponibili");
+		System.out.println("4. Visualizza rivenditori autorizzati");
+		System.out.println("5. Visualizza distributori automatici");
+		System.out.println("6. Visualizza lista dei mezzi");
 
 		int sceltaUtente = scanner.nextInt();
 		scanner.nextLine();
@@ -211,6 +210,7 @@ public class App {
 		AbbonamentoDAO ab = new AbbonamentoDAO(em);
 		TesseraDAO ts = new TesseraDAO(em);
 		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
+		TrattaDAO tr = new TrattaDAO(em);
 
 		switch (sceltaUtente) {
 		case 1:
@@ -222,6 +222,18 @@ public class App {
 			Abbonamento abbonamento1 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
 					LocalDate.now().plusMonths(3), true, ts.getTesseraById(1183), rva.getRivenditoreAutorizzatoById(1179));
 			ab.acquistaAbbonamento(abbonamento1);
+			break;
+		case 3:	
+				tr.getAllTratte();
+			break;
+		case 4:	
+			rva.getAllRivenditoriAutorizzati();
+			break;
+		case 5:	
+			dsa.getAllDistributoriAutomatici();
+			break;
+		case 6:	
+			mz.getAllMezzi();
 			break;
 		default:
 			System.out.println("Scelta non valida. Uscita dall'applicazione.");

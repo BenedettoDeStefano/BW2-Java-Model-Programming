@@ -44,7 +44,11 @@ public class RivenditoreAutorizzatoDAO {
     public List<RivenditoreAutorizzato> getAllRivenditoriAutorizzati() {
         try {
             Query query = em.createQuery("SELECT r FROM RivenditoreAutorizzato r", RivenditoreAutorizzato.class);
-            return query.getResultList();
+            List<RivenditoreAutorizzato> rivenditoriAutorizzati = query.getResultList();
+            for (RivenditoreAutorizzato rivenditore : rivenditoriAutorizzati) {
+                log.info(rivenditore.toString());
+            }
+            return rivenditoriAutorizzati;
         } catch (Exception e) {
             log.error("Errore durante il recupero di tutti i rivenditori autorizzati: " + e.getMessage());
             return null;

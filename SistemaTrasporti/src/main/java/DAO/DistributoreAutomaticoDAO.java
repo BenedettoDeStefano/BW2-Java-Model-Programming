@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import org.jboss.logging.Logger;
 
 import Entities.DistributoreAutomatico;
+import Entities.RivenditoreAutorizzato;
 
 public class DistributoreAutomaticoDAO {
 
@@ -44,14 +45,18 @@ public class DistributoreAutomaticoDAO {
 	}
 
 	public List<DistributoreAutomatico> getAllDistributoriAutomatici() {
-		try {
-			Query query = em.createQuery("SELECT d FROM DistributoreAutomatico d", DistributoreAutomatico.class);
-			return query.getResultList();
-		} catch (Exception e) {
-			log.error("Errore durante il recupero di tutti i distributori automatici: " + e.getMessage());
-			return null;
-		}
-	}
+        try {
+            Query query = em.createQuery("SELECT d FROM DistributoreAutomatico d", DistributoreAutomatico.class);
+            List<DistributoreAutomatico> distributoreAut = query.getResultList();
+            for (DistributoreAutomatico distributore : distributoreAut) {
+                log.info(distributore.toString());
+            }
+            return distributoreAut;
+        } catch (Exception e) {
+            log.error("Errore durante il recupero di tutti i distributori automatici: " + e.getMessage());
+            return null;
+        }
+    }
 
 	public void updateDistributoreAutomatico(DistributoreAutomatico distributore) {
 		EntityTransaction transaction = em.getTransaction();
