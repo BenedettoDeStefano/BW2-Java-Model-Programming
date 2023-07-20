@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -26,10 +28,10 @@ public class Mezzo {
 
 	@Id
 	@GeneratedValue
-	private Long id;
-
+	private int id;
+	@Enumerated(EnumType.STRING)
 	private TipoMezzo tipo;
-
+	@Enumerated(EnumType.STRING)
 	private StatoMezzo stato;
 
 	private int capienza;
