@@ -38,6 +38,7 @@ import DAO.TrattaDAO;
 import DAO.TrattePercorseDAO;
 import DAO.UtenteDAO;
 import Entities.Tratta;
+import Entities.Utente;
 import Entities.Abbonamento;
 import Entities.Biglietto;
 import Entities.DistributoreAutomatico;
@@ -290,7 +291,15 @@ public class Accesso {
 			tr.deleteTratta(tratta1);
 		break;
 		case 11:
+			ut.getAllUtenti();
 			
+			System.out.println("Inserisci l'ID di utente che vuoi eliminare");
+	        long idUtente = scanner.nextLong();
+	        scanner.nextLine();
+	        
+	        Utente utente1 = ut.getUtenteById(idUtente);
+			
+			ut.deleteUtente(utente1);
 		break;
 		case 12:
 			ab.getAllAbbonamenti();
