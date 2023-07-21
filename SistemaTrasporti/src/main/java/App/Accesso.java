@@ -1,25 +1,4 @@
 package App;
-//
-
-//import java.time.LocalDate;
-//import java.util.Scanner;
-//
-//import javax.persistence.EntityManager;
-//import javax.persistence.EntityManagerFactory;
-//import javax.persistence.Persistence;
-//
-//import DAO.AbbonamentoDAO;
-//import DAO.BigliettoDAO;
-//import DAO.MezzoDAO;
-//import Entities.Biglietto;
-//import Entities.DistributoreAutomatico;
-//import Entities.Mezzo;
-//import Entities.RivenditoreAutorizzato;
-//import Entities.Utente;
-//import Enum.TipoBiglietto;
-//import Enum.TipoMezzo;
-//
-//
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -55,20 +34,6 @@ public class Accesso {
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("sistemaTrasporti");
 
 	public static void accessoUtente() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println();
-		System.out.print("\n Benvenuto Utente, cosa vuoi fare? \n");
-		System.out.println("1. Acquista Biglietto");
-		System.out.println("2. Acquista Abbonamento");
-		System.out.println("3. Visualizza tratte disponibili");
-		System.out.println("4. Visualizza rivenditori autorizzati");
-		System.out.println("5. Visualizza distributori automatici");
-		System.out.println("6. Visualizza lista dei mezzi");
-		System.out.println("7. Visualizza tratta per mezzo");
-		System.out.println("8. Visualizza tempo per tratta");
-
-		int sceltaUtente = scanner.nextInt();
-		scanner.nextLine();
 		EntityManager em = emf.createEntityManager();
 		BigliettoDAO bg = new BigliettoDAO(em);
 		DistributoreAutomaticoDAO dsa = new DistributoreAutomaticoDAO(em);
@@ -79,18 +44,50 @@ public class Accesso {
 		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
 		TrattaDAO tr = new TrattaDAO(em);
 		TrattePercorseDAO tps = new TrattePercorseDAO(em);
+		
+		Scanner scanner = new Scanner(System.in);
+		boolean continua = true;
+
+		System.out.print("\n ---------- Benvenuto Utente ---------- \n");
+		
+		while (continua) {
+		System.err.println(" \n Cosa vuoi fare? \n");
+		System.out.println("1. Acquista Biglietto");
+		System.out.println("2. Acquista Abbonamento");
+		System.out.println("3. Visualizza tratte disponibili");
+		System.out.println("4. Visualizza rivenditori autorizzati");
+		System.out.println("5. Visualizza distributori automatici");
+		System.out.println("6. Visualizza lista dei mezzi");
+		System.out.println("7. Visualizza tratta per mezzo");
+		System.out.println("8. Visualizza tempo per tratta");
+		System.out.println("9. Esci");
+
+		int sceltaUtente = scanner.nextInt();
+		scanner.nextLine();
 
 		switch (sceltaUtente) {
 		case 1:
-			Biglietto ticket1 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
-					dsa.getDistributoreAutomaticoById((long) 1200), null, ut.getUtenteById((long) 777),
-					mz.getMezzoById((long) 767), TipoMezzo.TRAM);
-			bg.acquistaBiglietto(ticket1);
+			System.out.println("Inserisci il tipo di biglietto (SINGOLO, RIDOTTO O GRATUITO):");
+            String tipoBigliettoStr = scanner.nextLine();
+            TipoBiglietto tipoBiglietto = TipoBiglietto.valueOf(tipoBigliettoStr);
+            mz.getAllMezzi();           
+            System.out.println("Inserisci l'ID del mezzo:");
+            long idMezzo = scanner.nextLong();
+            scanner.nextLine();
+            Mezzo mezzo = mz.getMezzoById(idMezzo);
+            TipoMezzo tipoMezzo = mezzo.getTipo();
+            Biglietto ticket1 = new Biglietto("opppl55", LocalDate.now(), 12.50, tipoBiglietto, false,
+                            dsa.getDistributoreAutomaticoById((long) 1542), null, ut.getUtenteById((long) 1592),
+                            mezzo, tipoMezzo);
+            bg.acquistaBiglietto(ticket1);
 			break;
 		case 2:
-			Abbonamento abbonamento1 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
-					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 777),
-					rva.getRivenditoreAutorizzatoById((long) 742));
+			System.out.println("Inserisci il tipo di abbonamento (SETTIMANALE, MENSILE O ANNUALE):");
+            String tipoAbbonamentoStr = scanner.nextLine();
+            TipoAbbonamento tipoAbbonamento = TipoAbbonamento.valueOf(tipoAbbonamentoStr);			
+			Abbonamento abbonamento1 = new Abbonamento("AAA11", LocalDate.now(), 10.50, tipoAbbonamento,
+					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 1527),
+					rva.getRivenditoreAutorizzatoById((long) 1523));
 			ab.acquistaAbbonamento(abbonamento1);
 			break;
 		case 3:
@@ -111,19 +108,41 @@ public class Accesso {
 		case 8:
 			System.out.println(tps.findByTempoEffettivoSuperioreA((long) 125));
 			break;
+		case 9:
+			continua = false;
+			break;
 		default:
 			System.out.println("Scelta non valida. Uscita dall'applicazione.");
 			break;
 		}
 
-		scanner.close();
 	}
-
+		System.out.println("Grazie per aver utilizzato l'applicazione!");
+		scanner.close();
+}
+	
 	public static void accessoAmministratore() {
+		EntityManager em = emf.createEntityManager();
+		BigliettoDAO bg = new BigliettoDAO(em);
+		DistributoreAutomaticoDAO dsa = new DistributoreAutomaticoDAO(em);
+		UtenteDAO ut = new UtenteDAO(em);
+		MezzoDAO mz = new MezzoDAO(em);
+		AbbonamentoDAO ab = new AbbonamentoDAO(em);
+		TesseraDAO ts = new TesseraDAO(em);
+		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
+		TrattaDAO tr = new TrattaDAO(em);
+		TrattePercorseDAO tps = new TrattePercorseDAO(em);
+		OfficinaDAO of = new OfficinaDAO(em);
+		
+		
 		Scanner scanner = new Scanner(System.in);
+		boolean continua = true;
+		System.out.print("\n ---------- Benvenuto Amministratore ---------- \n");
 		System.out.println();
-		System.out.print("\n Benvenuto Amministratore, cosa vuoi fare? \n");
-		// Biglietti e Abbonamento
+		
+		while (continua) {
+		System.err.println("Cosa vuoi fare?");	
+		System.out.println();
 		System.out.println("------------------Principale------------------");
 		System.out.println("1. Emetti Biglietto");
 		System.out.println("2. Emetti Abbonamento");
@@ -146,50 +165,9 @@ public class Accesso {
 		System.out.println("16. Visualizza il tipo di abbonamento");
 		System.out.println("17. Visualizza mezzi in servizio");
 		System.out.println("18. Visualizza mezzi in manutenzione");
+		System.out.println("19. Esci");
 
-//		System.out.println("25. Modifica rivenditore");
-//		System.out.println("23. Modifica officina");
-//		System.out.println("20. Modifica mezzo");
-//		System.out.println("15. Modifica distributore");
-//		System.out.println("6. Elimina Biglietto");
-//		System.out.println("5. Modifica Biglietto");
 
-//		System.out.println("10. Visualizza abbonamento vidimato");
-//		System.out.println("11. Visualizza tessera abbonamento");
-
-//
-//		// Distributore
-//
-//		// Mezzo
-//		System.out.println("17. Visualizza lo stato del mezzo");
-
-//
-//		// Officine
-//		System.out.println("22. Visualizza le officine disponibili");
-//
-//		// Rivenditori
-//
-//		// Tessera
-//		System.out.println("27. Visualizza tessere disponibili");
-//
-//		// Tratta
-//
-//		// Utente
-//		System.out.println("32. Visualizza tutti gli utenti");
-
-		EntityManager em = emf.createEntityManager();
-		BigliettoDAO bg = new BigliettoDAO(em);
-		DistributoreAutomaticoDAO dsa = new DistributoreAutomaticoDAO(em);
-		UtenteDAO ut = new UtenteDAO(em);
-		MezzoDAO mz = new MezzoDAO(em);
-		AbbonamentoDAO ab = new AbbonamentoDAO(em);
-		TesseraDAO ts = new TesseraDAO(em);
-		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
-		TrattaDAO tr = new TrattaDAO(em);
-		TrattePercorseDAO tps = new TrattePercorseDAO(em);
-		OfficinaDAO of = new OfficinaDAO(em);
-
-		Biglietto ticket2 = null;
 
 		int sceltaAmministratore = scanner.nextInt();
 		scanner.nextLine();
@@ -197,15 +175,15 @@ public class Accesso {
 		switch (sceltaAmministratore) {
 
 		case 1:
-			ticket2 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
-					dsa.getDistributoreAutomaticoById((long) 1230), null, ut.getUtenteById((long) 1243),
-					mz.getMezzoById((long) 1236), TipoMezzo.TRAM);
+			Biglietto ticket2 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
+					dsa.getDistributoreAutomaticoById((long) 1672), null, ut.getUtenteById((long) 1686),
+					mz.getMezzoById((long) 1677), TipoMezzo.TRAM);
 			bg.emettiBiglietto(ticket2);
 			break;
 		case 2:
 			Abbonamento abbonamento2 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
-					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 1214),
-					rva.getRivenditoreAutorizzatoById((long) 1209));
+					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 1656),
+					rva.getRivenditoreAutorizzatoById((long) 1652));
 			ab.emettiAbbonamento(abbonamento2);
 			break;
 		case 3:
@@ -391,14 +369,54 @@ public class Accesso {
 			break;
 		case 17:
 			mz.getMezziInServizio();
-
+			break;
+		case 18:
+			mz.getMezziInManutenzione();
+			break;
+		case 19:
+			continua = false;
+			break;
 		default:
 			System.out.println("Scelta non valida. Uscita dall'applicazione.");
 			break;
 		}
-		em.close();
-		scanner.close();
 
 	}
-
+		System.out.println("Grazie per aver usato l'applicazione");
+		em.close();
+		scanner.close();
 }
+}
+
+
+
+//System.out.println("25. Modifica rivenditore");
+//System.out.println("23. Modifica officina");
+//System.out.println("20. Modifica mezzo");
+//System.out.println("15. Modifica distributore");
+//System.out.println("6. Elimina Biglietto");
+//System.out.println("5. Modifica Biglietto");
+	
+//System.out.println("10. Visualizza abbonamento vidimato");
+//System.out.println("11. Visualizza tessera abbonamento");
+	
+//
+//// Distributore
+//
+//// Mezzo
+//System.out.println("17. Visualizza lo stato del mezzo");
+	
+//
+//// Officine
+//System.out.println("22. Visualizza le officine disponibili");
+//
+//// Rivenditori
+//
+//// Tessera
+//System.out.println("27. Visualizza tessere disponibili");
+//
+//// Tratta
+//
+//// Utente
+//System.out.println("32. Visualizza tutti gli utenti");
+

@@ -1,5 +1,5 @@
 package Enum;
 
 public enum TipoMezzo {
-	AUTOBUS, TRAM
+	AUTOBUS, TRAM, METRO
 }

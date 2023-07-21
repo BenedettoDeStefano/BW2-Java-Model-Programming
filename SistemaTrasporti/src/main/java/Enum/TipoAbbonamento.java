@@ -1,5 +1,5 @@
 package Enum;
 
 public enum TipoAbbonamento {
-	SETTIMANALE, MENSILE
+	SETTIMANALE, MENSILE, ANNUALE
 }

@@ -65,7 +65,7 @@ public class App {
 					faker.address().fullAddress());
 			rva.saveRivenditoreAutorizzato(rivenditore);
 		}
-//
+
 		// Creazione/Salvataggio Tessere
 		for (int i = 0; i < 5; i++) {
 			LocalDate dataScadenza = LocalDate.now().plusMonths(i + 1);
@@ -73,7 +73,7 @@ public class App {
 			Tessera tessera = new Tessera(dataScadenza, codiceTessera);
 			ts.salvaTessera(tessera);
 		}
-//
+
 		// Creazione/Salvataggio Tratta
 		List<Tratta> tratte = new ArrayList<>();
 		for (int i = 0; i < 5; i++) {
@@ -83,7 +83,7 @@ public class App {
 			tratte.add(tratta);
 			tr.saveTratta(tratta);
 		}
-//
+
 		// Creazione/Salvataggio Officine
 		List<Officina> officineList = new ArrayList<>();
 		for (int i = 0; i < 5; i++) {
@@ -93,7 +93,7 @@ public class App {
 			officineList.add(officina);
 			of.saveOfficina(officina);
 		}
-//
+
 		// Creazione/Salvataggio Distributori
 		for (int i = 0; i < 5; i++) {
 			String posizione = faker.address().city();
@@ -101,7 +101,7 @@ public class App {
 			DistributoreAutomatico distributore = new DistributoreAutomatico(posizione, stato);
 			dsa.saveDistributoreAutomatico(distributore);
 		}
-//
+
 		// Creazione/Salvataggio Mezzo
 		List<Mezzo> mezzi = new ArrayList<>();
 
@@ -123,8 +123,9 @@ public class App {
 				mezzi.add(mezzo);
 			}
 		}
-//
+
 		// Creazione/Salvataggio TrattePercorse
+		System.out.println();
 		List<Mezzo> mezziAll = mz.getAllMezzi();
 		List<Tratta> tratteAll = tr.getAllTratte();
 
@@ -140,25 +141,25 @@ public class App {
 		}
 
 		// Creazione/Salvataggio Utenti tramite scanner
-		List<Tessera> tessere = ts.getAllTessere();
-		System.out.println();
-		System.err.println(" \n Crea 3 utenti:");
-
-		for (int i = 1; i < 4; i++) {
-			System.out.print("Inserisci il nome dell'utente " + i + " ");
-			String nome = scanner.nextLine();
-
-			System.out.print("Inserisci il cognome dell'utente " + i + " ");
-			String cognome = scanner.nextLine();
-
-			int randomIndex = random.nextInt(tessere.size());
-			Tessera tesseraRecuperataCasualmente = tessere.get(randomIndex);
-			tessere.remove(randomIndex);
-
-			Utente utente = new Utente(nome, cognome, tesseraRecuperataCasualmente);
-			ut.salvaUtente(utente);
-			System.out.println(utente);
-		}
+//		List<Tessera> tessere = ts.getAllTessere();
+//		System.out.println();
+//		System.err.println(" \n Crea 3 utenti:");
+//
+//		for (int i = 1; i < 4; i++) {
+//			System.out.print("Inserisci il nome dell'utente " + i + " ");
+//			String nome = scanner.nextLine();
+//
+//			System.out.print("Inserisci il cognome dell'utente " + i + " ");
+//			String cognome = scanner.nextLine();
+//
+//			int randomIndex = random.nextInt(tessere.size());
+//			Tessera tesseraRecuperataCasualmente = tessere.get(randomIndex);
+//			tessere.remove(randomIndex);
+//
+//			Utente utente = new Utente(nome, cognome, tesseraRecuperataCasualmente);
+//			ut.salvaUtente(utente);
+//			System.out.println(utente);
+//		}
 
 		// Scelta tra Utente e Amministratore
 		System.out.println("\n -----------------------Seleziona il tuo ruolo:-----------------------");
