@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import org.jboss.logging.Logger;
 
+import Entities.Tessera;
 import Entities.Utente;
 
 public class UtenteDAO {
@@ -85,17 +86,14 @@ public class UtenteDAO {
 				em.close();
 		}
 	}
-
+	
 	public List<Utente> getAllUtenti() {
-		try {
-			TypedQuery<Utente> query = em.createQuery("SELECT t FROM Utente t", Utente.class);
-			log.info("Lista utenti recuperata correttamente");
-			return query.getResultList();
-		} catch (Exception e) {
-			log.error("Errore durante il recupero della lista utenti");
-			return new ArrayList<>();
-		}
-	}
+        TypedQuery<Utente> query = em.createQuery("SELECT DISTINCT u FROM Utente u",
+                Utente.class);
+        List<Utente> utenti = query.getResultList();
+        log.info("Lista di tutti gli utenti presenti nel database: \n" + utenti);
+        return utenti;
+    }
 
 	public Utente getUtenteById(long l) {
 	    Utente utente = null;

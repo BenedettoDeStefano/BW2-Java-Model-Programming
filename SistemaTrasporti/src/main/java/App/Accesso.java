@@ -135,13 +135,12 @@ public class Accesso {
 		System.out.println("7. Elimina officina");
 		System.out.println("8. Elimina rivenditore");
 		System.out.println("9. Elimina tessera");
-		System.out.println("10. Elimina tratta");
-		System.out.println("11. Elimina utente");
+		System.out.println("10. Elimina utente");
 		System.out.println("------------------Modifica------------------");
-		System.out.println("12. Modifica abbonamento");
-		System.out.println("13. Modifica tessera");
-		System.out.println("14. Modifica tratta");
-		System.out.println("15. Modifica utente");
+		System.out.println("11. Modifica abbonamento");
+		System.out.println("12. Modifica tessera");
+		System.out.println("13. Modifica tratta");
+		System.out.println("14. Modifica utente");
 
 //		System.out.println("25. Modifica rivenditore");
 //		System.out.println("23. Modifica officina");
@@ -278,17 +277,6 @@ public class Accesso {
 			ts.deleteTessera(tessera1);
 			break;
 		case 10:
-			tr.getAllTratte();
-
-			System.out.println("Inserisci l'ID della tratta che vuoi eliminare");
-			long idTratta = scanner.nextLong();
-			scanner.nextLine();
-
-			Tratta tratta1 = tr.getTrattaById(idTratta);
-
-			tr.deleteTratta(tratta1);
-			break;
-		case 11:
 			ut.getAllUtenti();
 
 			System.out.println("Inserisci l'ID di utente che vuoi eliminare");
@@ -299,7 +287,7 @@ public class Accesso {
 
 			ut.deleteUtente(utente1);
 			break;
-		case 12:
+		case 11:
 			ab.getAllAbbonamenti();
 			System.out.println("Inserisci l'ID dell'abbonamento da aggiornare:");
 			long abbonamentoId = scanner.nextLong();
@@ -322,7 +310,7 @@ public class Accesso {
 				System.out.println("Abbonamento non trovato con l'ID fornito.");
 			}
 			break;
-		case 13:
+		case 12:
 			ts.getAllTessere();
 			System.out.println("Inserisci l'ID della tessera da aggiornare:");
 			long tesseraId = scanner.nextLong();
@@ -338,28 +326,47 @@ public class Accesso {
 				ts.updateTessera(tessera);
 			} else {
 				System.out.println("Tessera non trovata con l'ID fornito.");
+			}
+			break;
+		case 13:
+			tr.getAllTratte();
+			System.out.println("Inserisci l'ID della tratta da aggiornare:");
+			long trattaId = scanner.nextLong();
+			scanner.nextLine();
+			Tratta tratta1 = tr.getTrattaById(trattaId);
+
+			if (tratta1 != null) {
+				System.out.println("Modifica zona partenza: ");
+				String zonaPartenzaModificata = scanner.nextLine();
+				System.out.println("Modifica zona arrivo: ");
+				String zonaArrivoModificata = scanner.nextLine();
+				tratta1.setZonaPartenza(zonaPartenzaModificata);
+				tratta1.setCapolinea(zonaArrivoModificata);
+				
+				tr.updateTratta(tratta1);
+			} else {
+				System.out.println("Tratta non trovata con l'ID fornito.");
 			}
 			break;
 		case 14:
-			ts.getAllTessere();
-			System.out.println("Inserisci l'ID della tessera da aggiornare:");
-			long tesseraId = scanner.nextLong();
+			ut.getAllUtenti();
+			System.out.println("Inserisci l'ID dell' utente da aggiornare:");
+			long utenteId = scanner.nextLong();
 			scanner.nextLine();
-			Tessera tessera = ts.getTesseraById(tesseraId);
+			Utente utenteRecuperato = ut.getUtenteById(utenteId);
 
-			if (tessera != null) {
-				System.out.println("Inserisci la nuova data di scadenza (formato: YYYY-MM-DD):");
-				String dataScadenzaString = scanner.nextLine();
-				LocalDate dataScadenza = LocalDate.parse(dataScadenzaString);
-				tessera.setDataScadenza(dataScadenza);
-
-				ts.updateTessera(tessera);
+			if (utenteRecuperato != null) {
+				System.out.println("Modifica nome: ");
+				String nomeModificato = scanner.nextLine();
+				System.out.println("Modifica cognome: ");
+				String cognomeModificato = scanner.nextLine();
+				utenteRecuperato.setNome(nomeModificato);
+				utenteRecuperato.setCognome(cognomeModificato);
+				
+				ut.updateUtente(utenteRecuperato);
 			} else {
-				System.out.println("Tessera non trovata con l'ID fornito.");
+				System.out.println("Utente non trovatoo con l'ID fornito.");
 			}
-			break;
-		case 15:
-
 			break;
 		default:
 			System.out.println("Scelta non valida. Uscita dall'applicazione.");
@@ -373,70 +380,3 @@ public class Accesso {
 
 }
 
-//	
-//	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("sistemaTrasporti");
-//	public static void accessoUtente() {
-//	    Scanner scanner = new Scanner(System.in);
-//	    System.out.println();
-//	    System.out.print("\n Benvenuto Utente, cosa vuoi fare? \n");
-//	    System.out.println("1. Acquista Biglietto");
-//	    System.out.println("2. Acquista Abbonamento");
-//	    System.out.println("3. Cerca tratta");
-//	    System.out.println("4. Visualizza tratte disponibili");
-//	    System.out.println("5. Visualizza rivenditori autorizzati");
-//	    System.out.println("6. Visualizza distributori disponibili");
-//	    System.out.println("7. Visualizza lista dei mezzi");	
-//	    
-//	    EntityManager em = emf.createEntityManager();
-//	    AbbonamentoDAO ab = new AbbonamentoDAO(em);
-//	    BigliettoDAO bg = new BigliettoDAO(em);
-//	    MezzoDAO mz = new MezzoDAO(em);
-//	    
-//	     mezzo1 = mz.findMezzoByCodice(null);
-//	    
-//	    int sceltaUtente = scanner.nextInt();
-//	    scanner.nextLine();
-//	    
-//
-//	    switch (sceltaUtente) {
-//	        case 1:
-//	        	Biglietto biglietto1 = new Biglietto("AAA11", LocalDate.now(), 10.50, TipoBiglietto.SINGOLO,
-//	        			DistributoreAutomatico.class, RivenditoreAutorizzato.class, AUTOBUS); 		
-//	        	bg.acquistaBiglietto(null);
-//	            break;
-//	        case 2:
-//	           
-//	            break;
-//	        default:
-//	            System.out.println("Scelta non valida. Uscita dall'applicazione.");
-//	            break;
-//	    }
-//
-//	    scanner.close();
-//	}
-//
-//	public static void accessoAmministratore() {
-//	    Scanner scanner = new Scanner(System.in);
-//	    System.out.println();
-//	    System.out.print("\n Benvenuto Amministratore, cosa vuoi fare? \n");
-//	        
-//	   
-//	    int sceltaAmministratore = scanner.nextInt();
-//	    scanner.nextLine();
-//
-//	    switch (sceltaAmministratore) {
-//	        case 1:
-//	            
-//	            break;
-//	        case 2:
-//	            
-//	            break;
-//	        default:
-//	            System.out.println("Scelta non valida. Uscita dall'applicazione.");
-//	            break;
-//	    }
-//
-//	    scanner.close();
-//	}
-//
-//}

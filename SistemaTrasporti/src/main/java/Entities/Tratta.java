@@ -43,7 +43,7 @@ public class Tratta {
 
 	@Override
 	public String toString() {
-		return "Tratta [zonaPartenza=" + zonaPartenza + ", capolinea=" + capolinea + " ]\n";
+		return " \n Tratta [id=" + id + ", zonaPartenza=" + zonaPartenza + ", capolinea=" + capolinea + "] \n";
 	}
 
 	

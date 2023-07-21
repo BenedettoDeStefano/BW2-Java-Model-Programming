@@ -65,6 +65,8 @@ public class TrattaDAO {
 		t.commit();
 		log.info("Tratta eliminata correttamente");
 	}
+	
+	
 
 	public List<Tratta> getTratteByZonaPartenzaAndCapolinea(String zonaPartenza, String capolinea) {
 		TypedQuery<Tratta> query = em
