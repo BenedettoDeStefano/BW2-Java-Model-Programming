@@ -1,5 +1,6 @@
 package App;
 //
+
 //import java.time.LocalDate;
 //import java.util.Scanner;
 //
@@ -48,10 +49,9 @@ import Enum.TipoAbbonamento;
 import Enum.TipoBiglietto;
 import Enum.TipoMezzo;
 
-
 public class Accesso {
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("sistemaTrasporti");
-	
+
 	public static void accessoUtente() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println();
@@ -140,9 +140,7 @@ public class Accesso {
 		System.out.println("13. Modifica tessera");
 		System.out.println("14. Modifica tratta");
 		System.out.println("15. Modifica utente");
-		
-		
-		
+
 //		System.out.println("25. Modifica rivenditore");
 //		System.out.println("23. Modifica officina");
 //		System.out.println("20. Modifica mezzo");
@@ -188,17 +186,17 @@ public class Accesso {
 		TrattePercorseDAO tps = new TrattePercorseDAO(em);
 		OfficinaDAO of = new OfficinaDAO(em);
 
-		Biglietto ticket2 = null; 
+		Biglietto ticket2 = null;
 
 		int sceltaAmministratore = scanner.nextInt();
 		scanner.nextLine();
-		
+
 		switch (sceltaAmministratore) {
-		
+
 		case 1:
 			ticket2 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
 					dsa.getDistributoreAutomaticoById((long) 1243), null, ut.getUtenteById((long) 1256),
-					mz.getMezzoById((long)1245), TipoMezzo.TRAM);
+					mz.getMezzoById((long) 1245), TipoMezzo.TRAM);
 			bg.emettiBiglietto(ticket2);
 			break;
 		case 2:
@@ -208,120 +206,136 @@ public class Accesso {
 			ab.emettiAbbonamento(abbonamento2);
 			break;
 		case 3:
-				ticket2 = bg.getBigliettoById((long)1260);
-				bg.vidimaBiglietto(ticket2);
+			ticket2 = bg.getBigliettoById((long) 1260);
+			bg.vidimaBiglietto(ticket2);
 			break;
 		case 4:
 			ab.getAllAbbonamenti();
-			
+
 			System.out.println("Inserisci l'ID dell'abbonamento che vuoi eliminare");
-	        long idAbbonamento = scanner.nextLong();
-	        scanner.nextLine();
-	        
+			long idAbbonamento = scanner.nextLong();
+			scanner.nextLine();
+
 			Abbonamento abb1 = ab.getAbbonamentoById(idAbbonamento);
-			
+
 			ab.deleteAbbonamento(abb1);
-		break;
+			break;
 		case 5:
 			dsa.getAllDistributoriAutomatici();
-			
+
 			System.out.println("Inserisci l'ID del distributore che vuoi eliminare");
-	        long idDistributore = scanner.nextLong();
-	        scanner.nextLine();
-	        
+			long idDistributore = scanner.nextLong();
+			scanner.nextLine();
+
 			DistributoreAutomatico dis1 = dsa.getDistributoreAutomaticoById(idDistributore);
-			
+
 			dsa.deleteDistributoreAutomatico(dis1);
-		break;
+			break;
 		case 6:
 			mz.getAllMezzi();
-			
+
 			System.out.println("Inserisci l'ID del mezzo che vuoi eliminare");
-	        long idMezzo = scanner.nextLong();
-	        scanner.nextLine();
-	        
+			long idMezzo = scanner.nextLong();
+			scanner.nextLine();
+
 			Mezzo mezzo1 = mz.getMezzoById(idMezzo);
-			
+
 			mz.deleteMezzo(mezzo1);
-		break;
+			break;
 		case 7:
 			of.getAllOfficine();
-			
+
 			System.out.println("Inserisci l'ID dell' officina che vuoi eliminare");
-	        long idOfficina = scanner.nextLong();
-	        scanner.nextLine();
-	        
+			long idOfficina = scanner.nextLong();
+			scanner.nextLine();
+
 			Officina officina1 = of.getOfficinaById(idOfficina);
-			
+
 			of.deleteOfficina(officina1);
-		break;
+			break;
 		case 8:
 			rva.getAllRivenditoriAutorizzati();
-			
+
 			System.out.println("Inserisci l'ID del rivenditore che vuoi eliminare");
-	        long idRivenditore = scanner.nextLong();
-	        scanner.nextLine();
-	        
+			long idRivenditore = scanner.nextLong();
+			scanner.nextLine();
+
 			RivenditoreAutorizzato rivenditore1 = rva.getRivenditoreAutorizzatoById(idRivenditore);
-			
+
 			rva.deleteRivenditoreAutorizzato(rivenditore1);
-		break;
+			break;
 		case 9:
 			ts.getAllTessere();
-			
+
 			System.out.println("Inserisci l'ID della tessera che vuoi eliminare");
-	        long idTessera = scanner.nextLong();
-	        scanner.nextLine();
-	        
+			long idTessera = scanner.nextLong();
+			scanner.nextLine();
+
 			Tessera tessera1 = ts.getTesseraById(idTessera);
-			
+
 			ts.deleteTessera(tessera1);
-		break;
+			break;
 		case 10:
-		
-		break;
+
+			break;
 		case 11:
-			
-		break;
+
+			break;
 		case 12:
 			ab.getAllAbbonamenti();
 			System.out.println("Inserisci l'ID dell'abbonamento da aggiornare:");
-		    long abbonamentoId = scanner.nextLong();
-		    scanner.nextLine(); 
-		    Abbonamento abb2 = ab.getAbbonamentoById(abbonamentoId);
+			long abbonamentoId = scanner.nextLong();
+			scanner.nextLine();
+			Abbonamento abb2 = ab.getAbbonamentoById(abbonamentoId);
 
-		    if (abb2 != null) {
-		        System.out.println("Inserisci il nuovo tipo di abbonamento (SETTIMANALE - MENSILE)");
-		        String tipoAbbonamento = scanner.nextLine();
-		        abb2.setTipo(TipoAbbonamento.valueOf(tipoAbbonamento.toUpperCase()));
+			if (abb2 != null) {
+				System.out.println("Inserisci il nuovo tipo di abbonamento (SETTIMANALE - MENSILE)");
+				String tipoAbbonamento = scanner.nextLine();
+				abb2.setTipo(TipoAbbonamento.valueOf(tipoAbbonamento.toUpperCase()));
 
-		        System.out.println("Inserisci la nuova data di scadenza (formato: YYYY-MM-DD):");
-		        String dataScadenzaString = scanner.nextLine();
-		        LocalDate dataScadenza = LocalDate.parse(dataScadenzaString);;
-		        abb2.setDataScadenza(dataScadenza);
+				System.out.println("Inserisci la nuova data di scadenza (formato: YYYY-MM-DD):");
+				String dataScadenzaString = scanner.nextLine();
+				LocalDate dataScadenza = LocalDate.parse(dataScadenzaString);
+				;
+				abb2.setDataScadenza(dataScadenza);
 
-		        ab.updateAbbonamento(abb2);
-		    } else {
-		        System.out.println("Abbonamento non trovato con l'ID fornito.");
-		    }
-		    break;
+				ab.updateAbbonamento(abb2);
+			} else {
+				System.out.println("Abbonamento non trovato con l'ID fornito.");
+			}
+			break;
 		case 13:
-		
-		break;
+			ts.getAllTessere();
+			System.out.println("Inserisci l'ID dell'abbonamento da aggiornare:");
+			long tesseraId = scanner.nextLong();
+			scanner.nextLine();
+			Tessera tessera = ts.getTesseraById(tesseraId);
+
+			if (tessera != null) {
+				System.out.println("Inserisci la nuova data di scadenza (formato: YYYY-MM-DD):");
+				String dataScadenzaString = scanner.nextLine();
+				LocalDate dataScadenza = LocalDate.parse(dataScadenzaString);
+				tessera.setDataScadenza(dataScadenza);
+
+				ts.updateTessera(tessera);
+			} else {
+				System.out.println("Abbonamento non trovato con l'ID fornito.");
+			}
+			break;
+
 		case 14:
-			
-		break;
+
+			break;
 		case 15:
-			
-		break;
+
+			break;
 		default:
 			System.out.println("Scelta non valida. Uscita dall'applicazione.");
 			break;
-			
+
 		}
 		em.close();
 		scanner.close();
-
 
 	}
 
