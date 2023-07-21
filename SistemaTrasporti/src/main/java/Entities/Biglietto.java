@@ -72,6 +72,18 @@ public class Biglietto extends DocumentoViaggio {
 		this.rivenditore = rivenditore;
 		this.tipomezzo = tipomezzo;
 	}
+	
+	public Biglietto(String codiceUnivoco, LocalDate dataEmissione, Double prezzo, TipoBiglietto tipoBiglietto,
+			Boolean vidimato, Utente utente, DistributoreAutomatico distributore, Mezzo mezzo, TipoMezzo tipoMezzo) {
+		super(codiceUnivoco, dataEmissione, prezzo);
+		this.tipoBiglietto = tipoBiglietto;
+		this.vidimato = vidimato;
+		this.utente = utente;
+		this.distributore = distributore;
+		this.tipomezzo = tipoMezzo;
+	}
+	
+	
 
 	@Override
 	public String toString() {

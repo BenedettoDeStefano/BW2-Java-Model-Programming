@@ -67,13 +67,25 @@ public class Accesso {
 
 		switch (sceltaUtente) {
 		case 1:
-			Biglietto ticket1 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
-					dsa.getDistributoreAutomaticoById((long) 1542), null, ut.getUtenteById((long) 1592),
-					mz.getMezzoById((long) 1547), TipoMezzo.TRAM);
-			bg.acquistaBiglietto(ticket1);
+			System.out.println("Inserisci il tipo di biglietto (SINGOLO, RIDOTTO O GRATUITO):");
+            String tipoBigliettoStr = scanner.nextLine();
+            TipoBiglietto tipoBiglietto = TipoBiglietto.valueOf(tipoBigliettoStr);
+            mz.getAllMezzi();           
+            System.out.println("Inserisci l'ID del mezzo:");
+            long idMezzo = scanner.nextLong();
+            scanner.nextLine();
+            Mezzo mezzo = mz.getMezzoById(idMezzo);
+            TipoMezzo tipoMezzo = mezzo.getTipo();
+            Biglietto ticket1 = new Biglietto("opppl55", LocalDate.now(), 12.50, tipoBiglietto, false,
+                            dsa.getDistributoreAutomaticoById((long) 1542), null, ut.getUtenteById((long) 1592),
+                            mezzo, tipoMezzo);
+            bg.acquistaBiglietto(ticket1);
 			break;
 		case 2:
-			Abbonamento abbonamento1 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
+			System.out.println("Inserisci il tipo di abbonamento (SETTIMANALE, MENSILE O ANNUALE):");
+            String tipoAbbonamentoStr = scanner.nextLine();
+            TipoAbbonamento tipoAbbonamento = TipoAbbonamento.valueOf(tipoAbbonamentoStr);			
+			Abbonamento abbonamento1 = new Abbonamento("AAA11", LocalDate.now(), 10.50, tipoAbbonamento,
 					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 1527),
 					rva.getRivenditoreAutorizzatoById((long) 1523));
 			ab.acquistaAbbonamento(abbonamento1);
@@ -164,14 +176,14 @@ public class Accesso {
 
 		case 1:
 			Biglietto ticket2 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
-					dsa.getDistributoreAutomaticoById((long) 1545), null, ut.getUtenteById((long) 1594),
-					mz.getMezzoById((long) 1551), TipoMezzo.TRAM);
+					dsa.getDistributoreAutomaticoById((long) 1672), null, ut.getUtenteById((long) 1686),
+					mz.getMezzoById((long) 1677), TipoMezzo.TRAM);
 			bg.emettiBiglietto(ticket2);
 			break;
 		case 2:
 			Abbonamento abbonamento2 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
-					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 1563),
-					rva.getRivenditoreAutorizzatoById((long) 1559));
+					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 1656),
+					rva.getRivenditoreAutorizzatoById((long) 1652));
 			ab.emettiAbbonamento(abbonamento2);
 			break;
 		case 3:
