@@ -141,6 +141,9 @@ public class Accesso {
 		System.out.println("12. Modifica tessera");
 		System.out.println("13. Modifica tratta");
 		System.out.println("14. Modifica utente");
+		System.out.println("------------------Extra-----------------");
+		System.out.println("15. Aquisisci numero biglietti vidimati");
+		System.out.println("16. Visualizza il tipo di abbonamento");
 
 //		System.out.println("25. Modifica rivenditore");
 //		System.out.println("23. Modifica officina");
@@ -148,12 +151,10 @@ public class Accesso {
 //		System.out.println("15. Modifica distributore");
 //		System.out.println("6. Elimina Biglietto");
 //		System.out.println("5. Modifica Biglietto");
-//		System.out.println("4. Aquisisci numero biglietti vidimati");
-//		System.out.println("7. Visualizza biglietti disponibili");
-//		System.out.println("8. Visualizza il tipo di abbonamento");
+
 //		System.out.println("10. Visualizza abbonamento vidimato");
 //		System.out.println("11. Visualizza tessera abbonamento");
-//		System.out.println("12. Visualizza tutti abbonamenti");
+
 //
 //		// Distributore
 //
@@ -196,19 +197,23 @@ public class Accesso {
 
 		case 1:
 			ticket2 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
-					dsa.getDistributoreAutomaticoById((long) 1243), null, ut.getUtenteById((long) 1256),
-					mz.getMezzoById((long) 1245), TipoMezzo.TRAM);
+					dsa.getDistributoreAutomaticoById((long) 1230), null, ut.getUtenteById((long) 1243),
+					mz.getMezzoById((long) 1236), TipoMezzo.TRAM);
 			bg.emettiBiglietto(ticket2);
 			break;
 		case 2:
 			Abbonamento abbonamento2 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
-					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 1228),
-					rva.getRivenditoreAutorizzatoById((long) 1223));
+					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 1214),
+					rva.getRivenditoreAutorizzatoById((long) 1209));
 			ab.emettiAbbonamento(abbonamento2);
 			break;
 		case 3:
-			ticket2 = bg.getBigliettoById((long) 1260);
-			bg.vidimaBiglietto(ticket2);
+			bg.getAllBiglietti();
+			System.out.println("Inserisci l'ID del biglietto che vuoi vidimare");
+			long idBiglietto = scanner.nextLong();
+			scanner.nextLine();
+			Biglietto ticket = bg.getBigliettoById(idBiglietto);
+			bg.vidimaBiglietto(ticket);
 			break;
 		case 4:
 			ab.getAllAbbonamenti();
@@ -342,7 +347,7 @@ public class Accesso {
 				String zonaArrivoModificata = scanner.nextLine();
 				tratta1.setZonaPartenza(zonaPartenzaModificata);
 				tratta1.setCapolinea(zonaArrivoModificata);
-				
+
 				tr.updateTratta(tratta1);
 			} else {
 				System.out.println("Tratta non trovata con l'ID fornito.");
@@ -362,16 +367,31 @@ public class Accesso {
 				String cognomeModificato = scanner.nextLine();
 				utenteRecuperato.setNome(nomeModificato);
 				utenteRecuperato.setCognome(cognomeModificato);
-				
+
 				ut.updateUtente(utenteRecuperato);
 			} else {
 				System.out.println("Utente non trovatoo con l'ID fornito.");
 			}
 			break;
+		case 15:
+			bg.acquisisciNumeroBigliettiVidimati();
+			break;
+		case 16:
+			ab.getAllAbbonamenti();
+			System.out.println("Inserisci il tipo di abbonamento da visualizzare (SETTIMANALE o ANNUALE):");
+			String tipoAbbonamentoString = scanner.nextLine().toUpperCase();
+
+			try {
+				TipoAbbonamento tipoAbbonamento = TipoAbbonamento.valueOf(tipoAbbonamentoString);
+				ab.getAbbonamentiByTipo(tipoAbbonamento);
+			} catch (IllegalArgumentException e) {
+				System.err.println("Tipo di abbonamento non valido. Inserire SETTIMANALE o ANNUALE.");
+			}
+			break;
+
 		default:
 			System.out.println("Scelta non valida. Uscita dall'applicazione.");
 			break;
-
 		}
 		em.close();
 		scanner.close();
@@ -379,4 +399,3 @@ public class Accesso {
 	}
 
 }
-

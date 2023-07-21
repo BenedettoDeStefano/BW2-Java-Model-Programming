@@ -1,8 +1,5 @@
 package App;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
@@ -25,20 +22,6 @@ import DAO.TesseraDAO;
 import DAO.TrattaDAO;
 import DAO.TrattePercorseDAO;
 import DAO.UtenteDAO;
-import Entities.Abbonamento;
-import Entities.Biglietto;
-import Entities.DistributoreAutomatico;
-import Entities.Mezzo;
-import Entities.Officina;
-import Entities.RivenditoreAutorizzato;
-import Entities.Tessera;
-import Entities.Tratta;
-import Entities.TrattePercorse;
-import Entities.Utente;
-import Enum.StatoMezzo;
-import Enum.TipoAbbonamento;
-import Enum.TipoBiglietto;
-import Enum.TipoMezzo;
 
 public class App {
 

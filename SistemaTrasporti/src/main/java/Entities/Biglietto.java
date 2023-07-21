@@ -75,9 +75,7 @@ public class Biglietto extends DocumentoViaggio {
 
 	@Override
 	public String toString() {
-		return "Biglietto [tipoBiglietto=" + tipoBiglietto + ", vidimato=" + vidimato + ", distributore=" + distributore
-				+ ", rivenditore=" + rivenditore + ", utente=" + utente + ", mezzo=" + mezzo + ", toString()="
-				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+		return "\n Biglietto [id=" + id + ", tipoBiglietto=" + tipoBiglietto + ", vidimato=" + vidimato + "] \n";
 	}
 
 }
