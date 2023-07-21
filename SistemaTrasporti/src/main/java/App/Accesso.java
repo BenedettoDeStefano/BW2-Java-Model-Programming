@@ -37,6 +37,7 @@ import DAO.TesseraDAO;
 import DAO.TrattaDAO;
 import DAO.TrattePercorseDAO;
 import DAO.UtenteDAO;
+import Entities.Tratta;
 import Entities.Abbonamento;
 import Entities.Biglietto;
 import Entities.DistributoreAutomatico;
@@ -278,7 +279,15 @@ public class Accesso {
 			ts.deleteTessera(tessera1);
 		break;
 		case 10:
-		
+			tr.getAllTratte();
+			
+			System.out.println("Inserisci l'ID della tratta che vuoi eliminare");
+	        long idTratta = scanner.nextLong();
+	        scanner.nextLine();
+	        
+	        Tratta tratta1 = tr.getTrattaById(idTratta);
+			
+			tr.deleteTratta(tratta1);
 		break;
 		case 11:
 			
