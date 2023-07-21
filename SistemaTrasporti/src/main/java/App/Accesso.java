@@ -144,6 +144,8 @@ public class Accesso {
 		System.out.println("------------------Extra-----------------");
 		System.out.println("15. Aquisisci numero biglietti vidimati");
 		System.out.println("16. Visualizza il tipo di abbonamento");
+		System.out.println("17. Visualizza mezzi in servizio");
+		System.out.println("18. Visualizza mezzi in manutenzione");
 
 //		System.out.println("25. Modifica rivenditore");
 //		System.out.println("23. Modifica officina");
@@ -160,8 +162,7 @@ public class Accesso {
 //
 //		// Mezzo
 //		System.out.println("17. Visualizza lo stato del mezzo");
-//		System.out.println("18. Visualizza mezzi in servizio");
-//		System.out.println("19. Visualizza mezzi in manutenzione");
+
 //
 //		// Officine
 //		System.out.println("22. Visualizza le officine disponibili");
@@ -378,16 +379,18 @@ public class Accesso {
 			break;
 		case 16:
 			ab.getAllAbbonamenti();
-			System.out.println("Inserisci il tipo di abbonamento da visualizzare (SETTIMANALE o ANNUALE):");
+			System.out.println("Inserisci il tipo di abbonamento da visualizzare (SETTIMANALE o MENSILE):");
 			String tipoAbbonamentoString = scanner.nextLine().toUpperCase();
 
 			try {
 				TipoAbbonamento tipoAbbonamento = TipoAbbonamento.valueOf(tipoAbbonamentoString);
 				ab.getAbbonamentiByTipo(tipoAbbonamento);
 			} catch (IllegalArgumentException e) {
-				System.err.println("Tipo di abbonamento non valido. Inserire SETTIMANALE o ANNUALE.");
+				System.err.println("Tipo di abbonamento non valido. Inserire SETTIMANALE o MENSILE.");
 			}
 			break;
+		case 17:
+			mz.getMezziInServizio();
 
 		default:
 			System.out.println("Scelta non valida. Uscita dall'applicazione.");
