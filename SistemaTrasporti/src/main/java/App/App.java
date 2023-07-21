@@ -33,6 +33,8 @@ import Entities.Officina;
 import Entities.RivenditoreAutorizzato;
 import Entities.Tessera;
 import Entities.Tratta;
+import Entities.TrattePercorse;
+import Entities.Utente;
 import Enum.StatoMezzo;
 import Enum.TipoAbbonamento;
 import Enum.TipoBiglietto;
@@ -126,41 +128,41 @@ public class App {
 			}
 		}
 //
-//		// Creazione/Salvataggio TrattePercorse
-//		List<Mezzo> mezzis = mz.getAllMezzi();
-//		List<Tratta> trattes = tr.getAllTratte();
-//
-//		for (int i = 0; i < 5; i++) {
-//			long codiceStorico = random.nextLong(1000) + 1;
-//			int tempoEffettivo = random.nextInt(200) + 1;
-//			Mezzo mezzo = mezzi.get(random.nextInt(mezzi.size()));
-//			Tratta tratta = trattes.get(random.nextInt(trattes.size()));
-//			TrattePercorse trattePercorse = new TrattePercorse(codiceStorico, tempoEffettivo, mezzo, tratta);
-//			mezzo.addTrattePercorse(trattePercorse);
-//			tratta.addTrattePercorse(trattePercorse);
-//			tpd.save(trattePercorse);
-//		}
-//
-//		// Creazione/Salvataggio Utenti tramite scanner
-//		List<Tessera> tessere = ts.getAllTessere();
-//		System.out.println();
-//		System.err.println(" \n Crea 3 utenti:");
-//
-//		for (int i = 1; i < 4; i++) {
-//			System.out.print("Inserisci il nome dell'utente " + i + " ");
-//			String nome = scanner.nextLine();
-//
-//			System.out.print("Inserisci il cognome dell'utente " + i + " ");
-//			String cognome = scanner.nextLine();
-//
-//			int randomIndex = random.nextInt(tessere.size());
-//			Tessera tesseraRecuperataCasualmente = tessere.get(randomIndex);
-//			tessere.remove(randomIndex);
-//
-//			Utente utente = new Utente(nome, cognome, tesseraRecuperataCasualmente);
-//			ut.salvaUtente(utente);
-//			System.out.println(utente);
-//		}
+		// Creazione/Salvataggio TrattePercorse
+		List<Mezzo> mezziAll = mz.getAllMezzi();
+		List<Tratta> tratteAll = tr.getAllTratte();
+
+		for (int i = 0; i < 5; i++) {
+			long codiceStorico = random.nextLong(1000) + 1;
+			long tempoEffettivo = random.nextLong((long) 200) + 1;
+			Mezzo mezzo = mezziAll.get(random.nextInt(mezziAll.size()));
+			Tratta tratta = tratteAll.get(random.nextInt(tratteAll.size()));
+			TrattePercorse trattePercorse = new TrattePercorse(codiceStorico, tempoEffettivo, mezzo, tratta);
+			mezzo.addTrattePercorse(trattePercorse);
+			tratta.addTrattePercorse(trattePercorse);
+			tpd.save(trattePercorse);
+		}
+
+		// Creazione/Salvataggio Utenti tramite scanner
+		List<Tessera> tessere = ts.getAllTessere();
+		System.out.println();
+		System.err.println(" \n Crea 3 utenti:");
+
+		for (int i = 1; i < 4; i++) {
+			System.out.print("Inserisci il nome dell'utente " + i + " ");
+			String nome = scanner.nextLine();
+
+			System.out.print("Inserisci il cognome dell'utente " + i + " ");
+			String cognome = scanner.nextLine();
+
+			int randomIndex = random.nextInt(tessere.size());
+			Tessera tesseraRecuperataCasualmente = tessere.get(randomIndex);
+			tessere.remove(randomIndex);
+
+			Utente utente = new Utente(nome, cognome, tesseraRecuperataCasualmente);
+			ut.salvaUtente(utente);
+			System.out.println(utente);
+		}
 
 		// Scelta tra Utente e Amministratore
 		System.out.println("\n -----------------------Seleziona il tuo ruolo:-----------------------");
@@ -216,14 +218,14 @@ public class App {
 		switch (sceltaUtente) {
 		case 1:
 			Biglietto ticket1 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
-					dsa.getDistributoreAutomaticoById((long) 1200), null, ut.getUtenteById(1212), mz.getMezzoById(1205),
-					TipoMezzo.TRAM);
+					dsa.getDistributoreAutomaticoById((long) 1200), null, ut.getUtenteById((long) 777),
+					mz.getMezzoById((long) 767), TipoMezzo.TRAM);
 			bg.acquistaBiglietto(ticket1);
 			break;
 		case 2:
 			Abbonamento abbonamento1 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
-					LocalDate.now().plusMonths(3), true, ts.getTesseraById(1183),
-					rva.getRivenditoreAutorizzatoById(1179));
+					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 777),
+					rva.getRivenditoreAutorizzatoById((long) 742));
 			ab.acquistaAbbonamento(abbonamento1);
 			break;
 		case 3:
@@ -324,14 +326,14 @@ public class App {
 		switch (sceltaAmministratore) {
 		case 1:
 			ticket2 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
-					dsa.getDistributoreAutomaticoById((long) 762), null, ut.getUtenteById(1212), mz.getMezzoById(1205),
-					TipoMezzo.TRAM);
+					dsa.getDistributoreAutomaticoById((long) 762), null, ut.getUtenteById((long) 777),
+					mz.getMezzoById(1205), TipoMezzo.TRAM);
 			bg.emettiBiglietto(ticket2);
 			break;
 		case 2:
 			Abbonamento abbonamento2 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
-					LocalDate.now().plusMonths(3), true, ts.getTesseraById(1183),
-					rva.getRivenditoreAutorizzatoById(1179));
+					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 750),
+					rva.getRivenditoreAutorizzatoById((long) 1179));
 			ab.emettiAbbonamento(abbonamento2);
 			break;
 		case 3:
@@ -346,7 +348,9 @@ public class App {
 			break;
 		}
 
+		em.close();
 		scanner.close();
+
 	}
 
 }

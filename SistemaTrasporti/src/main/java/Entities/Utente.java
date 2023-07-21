@@ -21,23 +21,20 @@ import lombok.ToString;
 public class Utente {
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 	private String Nome;
 	private String Cognome;
-	
+
 	@OneToOne
 	private Tessera tessera;
-	
+
 	@OneToMany(mappedBy = "utente")
-	   private List<Biglietto> biglietti;
-	
-	
-	
+	private List<Biglietto> biglietti;
+
 	public Utente(String nome, String cognome, Tessera tessera) {
 		this.Nome = nome;
 		this.Cognome = cognome;
 		this.tessera = tessera;
 	}
-	
 
 }

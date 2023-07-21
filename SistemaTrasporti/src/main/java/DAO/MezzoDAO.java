@@ -32,8 +32,8 @@ public class MezzoDAO {
 		log.info("Mezzo salvato correttamente");
 	}
 
-	public Mezzo getMezzoById(int id) {
-		Mezzo mezzo = em.find(Mezzo.class, id);
+	public Mezzo getMezzoById(long l) {
+		Mezzo mezzo = em.find(Mezzo.class, l);
 		if (mezzo != null) {
 			log.info("Mezzo trovato correttamente: " + mezzo);
 		} else {

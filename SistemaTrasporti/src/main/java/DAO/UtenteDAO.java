@@ -2,7 +2,6 @@ package DAO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -98,11 +97,11 @@ public class UtenteDAO {
 		}
 	}
 
-	public Utente getUtenteById(int id) {
+	public Utente getUtenteById(long l) {
 
 		try {
-			log.info("Utente trovato con id" + id);
-			return em.find(Utente.class, id);
+			log.info("Utente trovato con id" + l);
+			return em.find(Utente.class, l);
 		} finally {
 			em.close();
 		}
