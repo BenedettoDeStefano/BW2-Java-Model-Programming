@@ -38,8 +38,6 @@ import DAO.TesseraDAO;
 import DAO.TrattaDAO;
 import DAO.TrattePercorseDAO;
 import DAO.UtenteDAO;
-import Entities.Tratta;
-import Entities.Utente;
 import Entities.Abbonamento;
 import Entities.Biglietto;
 import Entities.DistributoreAutomatico;
@@ -47,6 +45,8 @@ import Entities.Mezzo;
 import Entities.Officina;
 import Entities.RivenditoreAutorizzato;
 import Entities.Tessera;
+import Entities.Tratta;
+import Entities.Utente;
 import Enum.TipoAbbonamento;
 import Enum.TipoBiglietto;
 import Enum.TipoMezzo;
@@ -279,27 +279,25 @@ public class Accesso {
 			break;
 		case 10:
 			tr.getAllTratte();
-			
+
 			System.out.println("Inserisci l'ID della tratta che vuoi eliminare");
-	        long idTratta = scanner.nextLong();
-	        scanner.nextLine();
-	        
-	        Tratta tratta1 = tr.getTrattaById(idTratta);
-			
+			long idTratta = scanner.nextLong();
+			scanner.nextLine();
+
+			Tratta tratta1 = tr.getTrattaById(idTratta);
+
 			tr.deleteTratta(tratta1);
-		break;
+			break;
 		case 11:
 			ut.getAllUtenti();
-			
-			System.out.println("Inserisci l'ID di utente che vuoi eliminare");
-	        long idUtente = scanner.nextLong();
-	        scanner.nextLine();
-	        
-	        Utente utente1 = ut.getUtenteById(idUtente);
-			
-			ut.deleteUtente(utente1);
-		break;
 
+			System.out.println("Inserisci l'ID di utente che vuoi eliminare");
+			long idUtente = scanner.nextLong();
+			scanner.nextLine();
+
+			Utente utente1 = ut.getUtenteById(idUtente);
+
+			ut.deleteUtente(utente1);
 			break;
 		case 12:
 			ab.getAllAbbonamenti();
@@ -326,7 +324,7 @@ public class Accesso {
 			break;
 		case 13:
 			ts.getAllTessere();
-			System.out.println("Inserisci l'ID dell'abbonamento da aggiornare:");
+			System.out.println("Inserisci l'ID della tessera da aggiornare:");
 			long tesseraId = scanner.nextLong();
 			scanner.nextLine();
 			Tessera tessera = ts.getTesseraById(tesseraId);
@@ -339,12 +337,26 @@ public class Accesso {
 
 				ts.updateTessera(tessera);
 			} else {
-				System.out.println("Abbonamento non trovato con l'ID fornito.");
+				System.out.println("Tessera non trovata con l'ID fornito.");
 			}
 			break;
-
 		case 14:
+			ts.getAllTessere();
+			System.out.println("Inserisci l'ID della tessera da aggiornare:");
+			long tesseraId = scanner.nextLong();
+			scanner.nextLine();
+			Tessera tessera = ts.getTesseraById(tesseraId);
 
+			if (tessera != null) {
+				System.out.println("Inserisci la nuova data di scadenza (formato: YYYY-MM-DD):");
+				String dataScadenzaString = scanner.nextLine();
+				LocalDate dataScadenza = LocalDate.parse(dataScadenzaString);
+				tessera.setDataScadenza(dataScadenza);
+
+				ts.updateTessera(tessera);
+			} else {
+				System.out.println("Tessera non trovata con l'ID fornito.");
+			}
 			break;
 		case 15:
 
