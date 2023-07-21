@@ -44,16 +44,17 @@ public class BigliettoDAO {
      }
     
     // Vidima biglietto
-     public void vidimaBiglietto(Biglietto biglietto) {
-    	 if (!biglietto.getVidimato()) {
-    		 biglietto.setVidimato(true);
-    		 em.merge(biglietto);
-    		 log.info("Biglietto vidimato correttamente");
-    	 } else {
-    		 log.info("Biglietto già vidimato in precedenza");
-    	 }
-        
-     }
+    public void vidimaBiglietto(Biglietto biglietto) {
+        if (!biglietto.getVidimato()) {
+            em.getTransaction().begin();
+            biglietto.setVidimato(true);
+            em.merge(biglietto);
+            em.getTransaction().commit();
+            log.info("Biglietto vidimato correttamente");
+        } else {
+            log.info("Biglietto già vidimato in precedenza");
+        }
+    }
      
      // Cerca biglietto con id
      public Biglietto getBigliettoById(Long id) {

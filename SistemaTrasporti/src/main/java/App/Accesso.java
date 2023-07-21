@@ -1,4 +1,4 @@
-//package App;
+package App;
 //
 //import java.time.LocalDate;
 //import java.util.Scanner;
@@ -19,7 +19,208 @@
 //import Enum.TipoMezzo;
 //
 //
-//public class Accesso {
+
+import java.time.LocalDate;
+import java.util.Scanner;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import DAO.AbbonamentoDAO;
+import DAO.BigliettoDAO;
+import DAO.DistributoreAutomaticoDAO;
+import DAO.MezzoDAO;
+import DAO.RivenditoreAutorizzatoDAO;
+import DAO.TesseraDAO;
+import DAO.TrattaDAO;
+import DAO.TrattePercorseDAO;
+import DAO.UtenteDAO;
+import Entities.Abbonamento;
+import Entities.Biglietto;
+import Enum.TipoAbbonamento;
+import Enum.TipoBiglietto;
+import Enum.TipoMezzo;
+
+
+public class Accesso {
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("sistemaTrasporti");
+	
+	public static void accessoUtente() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println();
+		System.out.print("\n Benvenuto Utente, cosa vuoi fare? \n");
+		System.out.println("1. Acquista Biglietto");
+		System.out.println("2. Acquista Abbonamento");
+		System.out.println("3. Visualizza tratte disponibili");
+		System.out.println("4. Visualizza rivenditori autorizzati");
+		System.out.println("5. Visualizza distributori automatici");
+		System.out.println("6. Visualizza lista dei mezzi");
+		System.out.println("7. Visualizza tratta per mezzo");
+		System.out.println("8. Visualizza tempo per tratta");
+
+		int sceltaUtente = scanner.nextInt();
+		scanner.nextLine();
+		EntityManager em = emf.createEntityManager();
+		BigliettoDAO bg = new BigliettoDAO(em);
+		DistributoreAutomaticoDAO dsa = new DistributoreAutomaticoDAO(em);
+		UtenteDAO ut = new UtenteDAO(em);
+		MezzoDAO mz = new MezzoDAO(em);
+		AbbonamentoDAO ab = new AbbonamentoDAO(em);
+		TesseraDAO ts = new TesseraDAO(em);
+		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
+		TrattaDAO tr = new TrattaDAO(em);
+		TrattePercorseDAO tps = new TrattePercorseDAO(em);
+
+		switch (sceltaUtente) {
+		case 1:
+			Biglietto ticket1 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
+					dsa.getDistributoreAutomaticoById((long) 1200), null, ut.getUtenteById((long) 777),
+					mz.getMezzoById((long) 767), TipoMezzo.TRAM);
+			bg.acquistaBiglietto(ticket1);
+			break;
+		case 2:
+			Abbonamento abbonamento1 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
+					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 777),
+					rva.getRivenditoreAutorizzatoById((long) 742));
+			ab.acquistaAbbonamento(abbonamento1);
+			break;
+		case 3:
+			tr.getAllTratte();
+			break;
+		case 4:
+			rva.getAllRivenditoriAutorizzati();
+			break;
+		case 5:
+			dsa.getAllDistributoriAutomatici();
+			break;
+		case 6:
+			mz.getAllMezzi();
+			break;
+		case 7:
+			System.out.println(tps.findByMezzo((long) 767));
+			break;
+		case 8:
+			System.out.println(tps.findByTempoEffettivoSuperioreA((long) 125));
+			break;
+		default:
+			System.out.println("Scelta non valida. Uscita dall'applicazione.");
+			break;
+		}
+
+		scanner.close();
+	}
+
+	public static void accessoAmministratore() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println();
+		System.out.print("\n Benvenuto Amministratore, cosa vuoi fare? \n");
+		// Biglietti e Abbonamento
+		System.out.println("------------------Principale------------------");
+		System.out.println("1. Emetti Biglietto");
+		System.out.println("2. Emetti Abbonamento");
+		System.out.println("3. Vidima Biglietto");
+		System.out.println("------------------Elimina------------------");
+		System.out.println("4. Elimina abbonamento");
+		System.out.println("5. Elimina un distributore");
+		System.out.println("6. Elimina mezzo");
+		System.out.println("7. Elimina officina");
+		System.out.println("8. Elimina rivenditore");
+		System.out.println("9. Elimina tessera");
+		System.out.println("10. Elimina tratta");
+		System.out.println("11. Elimina utente");
+		System.out.println("------------------Modifica------------------");
+		System.out.println("12. Modifica abbonamento");
+		System.out.println("13. Modifica tessera");
+		System.out.println("14. Modifica tratta");
+		System.out.println("15. Modifica utente");
+		
+		
+		
+//		System.out.println("25. Modifica rivenditore");
+//		System.out.println("23. Modifica officina");
+//		System.out.println("20. Modifica mezzo");
+//		System.out.println("15. Modifica distributore");
+//		System.out.println("6. Elimina Biglietto");
+//		System.out.println("5. Modifica Biglietto");
+//		System.out.println("4. Aquisisci numero biglietti vidimati");
+//		System.out.println("7. Visualizza biglietti disponibili");
+//		System.out.println("8. Visualizza il tipo di abbonamento");
+//		System.out.println("10. Visualizza abbonamento vidimato");
+//		System.out.println("11. Visualizza tessera abbonamento");
+//		System.out.println("12. Visualizza tutti abbonamenti");
+//
+//		// Distributore
+//
+//		// Mezzo
+//		System.out.println("17. Visualizza lo stato del mezzo");
+//		System.out.println("18. Visualizza mezzi in servizio");
+//		System.out.println("19. Visualizza mezzi in manutenzione");
+//
+//		// Officine
+//		System.out.println("22. Visualizza le officine disponibili");
+//
+//		// Rivenditori
+//
+//		// Tessera
+//		System.out.println("27. Visualizza tessere disponibili");
+//
+//		// Tratta
+//
+//		// Utente
+//		System.out.println("32. Visualizza tutti gli utenti");
+
+		EntityManager em = emf.createEntityManager();
+		BigliettoDAO bg = new BigliettoDAO(em);
+		DistributoreAutomaticoDAO dsa = new DistributoreAutomaticoDAO(em);
+		UtenteDAO ut = new UtenteDAO(em);
+		MezzoDAO mz = new MezzoDAO(em);
+		AbbonamentoDAO ab = new AbbonamentoDAO(em);
+		TesseraDAO ts = new TesseraDAO(em);
+		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
+		TrattaDAO tr = new TrattaDAO(em);
+		TrattePercorseDAO tps = new TrattePercorseDAO(em);
+
+		Biglietto ticket2 = null; 
+
+		int sceltaAmministratore = scanner.nextInt();
+		scanner.nextLine();
+		
+		switch (sceltaAmministratore) {
+		
+		case 1:
+			ticket2 = new Biglietto("opppl55", LocalDate.now(), 12.50, TipoBiglietto.SINGOLO, false,
+					dsa.getDistributoreAutomaticoById((long) 1243), null, ut.getUtenteById((long) 1256),
+					mz.getMezzoById((long)1245), TipoMezzo.TRAM);
+			bg.emettiBiglietto(ticket2);
+			break;
+		case 2:
+			Abbonamento abbonamento2 = new Abbonamento("AAA11", LocalDate.now(), 10.50, TipoAbbonamento.MENSILE,
+					LocalDate.now().plusMonths(3), true, ts.getTesseraById((long) 1228),
+					rva.getRivenditoreAutorizzatoById((long) 1223));
+			ab.emettiAbbonamento(abbonamento2);
+			break;
+		case 3:
+				ticket2 = bg.getBigliettoById((long)1260);
+				bg.vidimaBiglietto(ticket2);
+			break;
+		case 4:
+			Abbonamento abb1 = ab.getAbbonamentoById((long)1262);
+			ab.updateAbbonamento(abb1);
+		break;
+		default:
+			System.out.println("Scelta non valida. Uscita dall'applicazione.");
+			break;
+			
+		}
+		em.close();
+		scanner.close();
+
+
+	}
+
+}
+
 //	
 //	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("sistemaTrasporti");
 //	public static void accessoUtente() {

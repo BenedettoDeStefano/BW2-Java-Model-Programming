@@ -98,36 +98,22 @@ public class UtenteDAO {
 	}
 
 	public Utente getUtenteById(long l) {
+	    Utente utente = null;
+	    EntityTransaction t = em.getTransaction();
 
-		try {
-			log.info("Utente trovato con id" + l);
-			return em.find(Utente.class, l);
-		} finally {
-			em.close();
-		}
+	    try {
+	        t.begin();
+	        log.info("Utente trovato con id" + l);
+	        utente = em.find(Utente.class, l);
+	        t.commit();
+	    } catch (Exception e) {
+	        t.rollback();
+	        log.error("Errore durante il recupero dell'utente con id " + l, e);
+	        throw new RuntimeException("Errore durante il recupero dell'utente con id " + l, e);
+	    }
+
+	    return utente;
 	}
 
-//	public Utente getUtenteCasuale() {
-//		try {
-//			// Esegui una query per ottenere tutti gli ID dei distributori presenti nel
-//			// database
-//			TypedQuery<Long> query = em.createQuery("SELECT d.id FROM Utente d", Long.class);
-//			List<Long> utenteIds = query.getResultList();
-//
-//			// Genera un numero casuale tra 0 e la dimensione della lista degli ID
-//			Random random = new Random();
-//			int randomIndex = random.nextInt(utenteIds.size());
-//
-//			// Ottieni l'ID casuale dalla lista degli ID
-//			Long utenteIdCasuale = utenteIds.get(randomIndex);
-//
-//			// Utilizza l'ID casuale per recuperare il distributore corrispondente dal
-//			// database
-//			return em.find(Utente.class, utenteIdCasuale);
-//		} catch (Exception e) {
-//			log.error("Errore durante il recupero dell'utente casuale: " + e.getMessage());
-//			return null;
-//		}
-//	}
 
 }
