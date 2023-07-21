@@ -17,7 +17,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class Utente {
 	@Id
 	@GeneratedValue
@@ -36,5 +35,12 @@ public class Utente {
 		this.Cognome = cognome;
 		this.tessera = tessera;
 	}
+
+	@Override
+	public String toString() {
+		return "Utente [id=" + id + ", Nome=" + Nome + ", Cognome=" + Cognome + ", tessera=" + tessera + "]";
+	}
+	
+	
 
 }

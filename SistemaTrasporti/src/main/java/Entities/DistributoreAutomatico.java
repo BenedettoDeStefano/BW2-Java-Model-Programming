@@ -31,7 +31,7 @@ public DistributoreAutomatico(String posizione, Boolean attivo) {
 
 @Override
 public String toString() {
-	return "DistributoreAutomatico [posizione=" + posizione + ", attivo=" + attivo + "]";
+	return "DistributoreAutomatico [id=" + id + ", posizione=" + posizione + ", attivo=" + attivo + "]";
 }
    
 

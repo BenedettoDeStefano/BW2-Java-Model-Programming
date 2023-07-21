@@ -15,7 +15,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class Officina {
 	
 	@Id
@@ -29,6 +28,12 @@ public class Officina {
 		super();
 		this.dataInizioManutenzione = dataInizioManutenzione;
 		this.dataFineManutenzione = dataFineManutenzione;
+	}
+
+	@Override
+	public String toString() {
+		return " \n Officina [id=" + id + ", dataInizioManutenzione=" + dataInizioManutenzione + ", dataFineManutenzione="
+				+ dataFineManutenzione + "] \n";
 	}
 	
 	

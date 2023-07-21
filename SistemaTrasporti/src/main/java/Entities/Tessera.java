@@ -32,4 +32,13 @@ public class Tessera {
 
 	@OneToOne(mappedBy = "tessera")
 	private Utente utente;
+
+	@Override
+	public String toString() {
+		return " \n Tessera [dataScadenza=" + dataScadenza + ", id=" + id + ", numeroTessera=" + numeroTessera + "] \n";
+	}
+
+	
+	
+	
 }

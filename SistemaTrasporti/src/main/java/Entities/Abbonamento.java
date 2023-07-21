@@ -46,9 +46,9 @@ public class Abbonamento extends DocumentoViaggio {
 
 	@Override
 	public String toString() {
-		return "Abbonamento [id=" + id + ", tipo=" + tipo + ", dataScadenza=" + dataScadenza + ", vidimato=" + vidimato
+		return " \n Abbonamento [id=" + id + ", tipo=" + tipo + ", dataScadenza=" + dataScadenza + ", vidimato=" + vidimato
 				+ ", tessera=" + tessera + ", rivenditore=" + rivenditore + ", toString()=" + super.toString()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "] \n";
 	}
 
 	

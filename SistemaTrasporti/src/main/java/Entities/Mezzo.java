@@ -72,6 +72,7 @@ public class Mezzo {
 
 	@Override
 	public String toString() {
-		return "Mezzo: Tipo = " + tipo + ", Stato = " + stato + ", Capienza = " + capienza + "\n";
+		return "Mezzo [id=" + id + ", tipo=" + tipo + ", stato=" + stato + ", capienza=" + capienza + ", tratta="
+				+ tratta + "]";
 	}
 }

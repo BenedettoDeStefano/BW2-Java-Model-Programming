@@ -31,7 +31,7 @@ public class RivenditoreAutorizzato {
 
 	@Override
 	public String toString() {
-		return "RivenditoreAutorizzato [nome=" + nome + ", indirizzo=" + indirizzo + "]";
+		return " \n RivenditoreAutorizzato [id=" + id + ", nome=" + nome + ", indirizzo=" + indirizzo + "] \n";
 	}
 
 }

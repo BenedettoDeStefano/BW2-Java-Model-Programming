@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.jboss.logging.Logger;
 
@@ -43,10 +44,19 @@ public class OfficinaDAO {
     }
     
     // Cerca tutte le officine
+//    public List<Officina> getAllOfficine() {
+//        Query query = em.createQuery("SELECT o FROM Officina o");
+//        return query.getResultList();
+//    }
+    
     public List<Officina> getAllOfficine() {
-        Query query = em.createQuery("SELECT o FROM Officina o");
-        return query.getResultList();
+        TypedQuery<Officina> query = em.createQuery("SELECT DISTINCT o FROM Officina o",
+                Officina.class);
+        List<Officina> Officina = query.getResultList();
+        log.info("Lista di tutte le Officine presenti nel database: \n" + Officina);
+        return Officina;
     }
+    
     // Aggiorna officina
     public void updateOfficina(Officina officina) {
         em.getTransaction().begin();

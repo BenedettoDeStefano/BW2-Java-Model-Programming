@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import org.jboss.logging.Logger;
 
+import Entities.Officina;
 import Entities.Tessera;
 
 public class TesseraDAO {
@@ -85,16 +86,15 @@ public class TesseraDAO {
 				em.close();
 		}
 	}
-
+	
+	
 	public List<Tessera> getAllTessere() {
-		try {
-			TypedQuery<Tessera> query = em.createQuery("SELECT t FROM Tessera t", Tessera.class);
-			return query.getResultList();
-		} catch (Exception e) {
-			log.error("Errore durante il recupero di lista tessere");
-			return new ArrayList<>();
-		}
-	}
+        TypedQuery<Tessera> query = em.createQuery("SELECT DISTINCT t FROM Tessera t",
+                Tessera.class);
+        List<Tessera> tessere = query.getResultList();
+        log.info("Lista di tutte le Officine presenti nel database: \n" + tessere);
+        return tessere;
+    }
 
 	public Tessera getTesseraById(long l) {
 		try {

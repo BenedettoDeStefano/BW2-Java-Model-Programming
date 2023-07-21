@@ -31,6 +31,7 @@ import DAO.AbbonamentoDAO;
 import DAO.BigliettoDAO;
 import DAO.DistributoreAutomaticoDAO;
 import DAO.MezzoDAO;
+import DAO.OfficinaDAO;
 import DAO.RivenditoreAutorizzatoDAO;
 import DAO.TesseraDAO;
 import DAO.TrattaDAO;
@@ -38,6 +39,11 @@ import DAO.TrattePercorseDAO;
 import DAO.UtenteDAO;
 import Entities.Abbonamento;
 import Entities.Biglietto;
+import Entities.DistributoreAutomatico;
+import Entities.Mezzo;
+import Entities.Officina;
+import Entities.RivenditoreAutorizzato;
+import Entities.Tessera;
 import Enum.TipoAbbonamento;
 import Enum.TipoBiglietto;
 import Enum.TipoMezzo;
@@ -180,6 +186,7 @@ public class Accesso {
 		RivenditoreAutorizzatoDAO rva = new RivenditoreAutorizzatoDAO(em);
 		TrattaDAO tr = new TrattaDAO(em);
 		TrattePercorseDAO tps = new TrattePercorseDAO(em);
+		OfficinaDAO of = new OfficinaDAO(em);
 
 		Biglietto ticket2 = null; 
 
@@ -205,8 +212,107 @@ public class Accesso {
 				bg.vidimaBiglietto(ticket2);
 			break;
 		case 4:
-			Abbonamento abb1 = ab.getAbbonamentoById((long)1262);
-			ab.updateAbbonamento(abb1);
+			ab.getAllAbbonamenti();
+			
+			System.out.println("Inserisci l'ID dell'abbonamento che vuoi eliminare");
+	        long idAbbonamento = scanner.nextLong();
+	        scanner.nextLine();
+	        
+			Abbonamento abb1 = ab.getAbbonamentoById(idAbbonamento);
+			
+			ab.deleteAbbonamento(abb1);
+		break;
+		case 5:
+			dsa.getAllDistributoriAutomatici();
+			
+			System.out.println("Inserisci l'ID del distributore che vuoi eliminare");
+	        long idDistributore = scanner.nextLong();
+	        scanner.nextLine();
+	        
+			DistributoreAutomatico dis1 = dsa.getDistributoreAutomaticoById(idDistributore);
+			
+			dsa.deleteDistributoreAutomatico(dis1);
+		break;
+		case 6:
+			mz.getAllMezzi();
+			
+			System.out.println("Inserisci l'ID del mezzo che vuoi eliminare");
+	        long idMezzo = scanner.nextLong();
+	        scanner.nextLine();
+	        
+			Mezzo mezzo1 = mz.getMezzoById(idMezzo);
+			
+			mz.deleteMezzo(mezzo1);
+		break;
+		case 7:
+			of.getAllOfficine();
+			
+			System.out.println("Inserisci l'ID dell' officina che vuoi eliminare");
+	        long idOfficina = scanner.nextLong();
+	        scanner.nextLine();
+	        
+			Officina officina1 = of.getOfficinaById(idOfficina);
+			
+			of.deleteOfficina(officina1);
+		break;
+		case 8:
+			rva.getAllRivenditoriAutorizzati();
+			
+			System.out.println("Inserisci l'ID del rivenditore che vuoi eliminare");
+	        long idRivenditore = scanner.nextLong();
+	        scanner.nextLine();
+	        
+			RivenditoreAutorizzato rivenditore1 = rva.getRivenditoreAutorizzatoById(idRivenditore);
+			
+			rva.deleteRivenditoreAutorizzato(rivenditore1);
+		break;
+		case 9:
+			ts.getAllTessere();
+			
+			System.out.println("Inserisci l'ID della tessera che vuoi eliminare");
+	        long idTessera = scanner.nextLong();
+	        scanner.nextLine();
+	        
+			Tessera tessera1 = ts.getTesseraById(idTessera);
+			
+			ts.deleteTessera(tessera1);
+		break;
+		case 10:
+		
+		break;
+		case 11:
+			
+		break;
+		case 12:
+			ab.getAllAbbonamenti();
+			System.out.println("Inserisci l'ID dell'abbonamento da aggiornare:");
+		    long abbonamentoId = scanner.nextLong();
+		    scanner.nextLine(); 
+		    Abbonamento abb2 = ab.getAbbonamentoById(abbonamentoId);
+
+		    if (abb2 != null) {
+		        System.out.println("Inserisci il nuovo tipo di abbonamento (SETTIMANALE - MENSILE)");
+		        String tipoAbbonamento = scanner.nextLine();
+		        abb2.setTipo(TipoAbbonamento.valueOf(tipoAbbonamento.toUpperCase()));
+
+		        System.out.println("Inserisci la nuova data di scadenza (formato: YYYY-MM-DD):");
+		        String dataScadenzaString = scanner.nextLine();
+		        LocalDate dataScadenza = LocalDate.parse(dataScadenzaString);;
+		        abb2.setDataScadenza(dataScadenza);
+
+		        ab.updateAbbonamento(abb2);
+		    } else {
+		        System.out.println("Abbonamento non trovato con l'ID fornito.");
+		    }
+		    break;
+		case 13:
+		
+		break;
+		case 14:
+			
+		break;
+		case 15:
+			
 		break;
 		default:
 			System.out.println("Scelta non valida. Uscita dall'applicazione.");
