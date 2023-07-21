@@ -59,106 +59,107 @@ public class App {
 		AbbonamentoDAO ab = new AbbonamentoDAO(em);
 		BigliettoDAO bg = new BigliettoDAO(em);
 
-		// Creazione e salvataggio dei rivenditori autorizzati
-		for (int i = 0; i < 5; i++) {
-			RivenditoreAutorizzato rivenditore = new RivenditoreAutorizzato(faker.company().name(),
-					faker.address().fullAddress());
-			rva.saveRivenditoreAutorizzato(rivenditore);
-		}
+//		// Creazione e salvataggio dei rivenditori autorizzati
+//		for (int i = 0; i < 5; i++) {
+//			RivenditoreAutorizzato rivenditore = new RivenditoreAutorizzato(faker.company().name(),
+//					faker.address().fullAddress());
+//			rva.saveRivenditoreAutorizzato(rivenditore);
+//		}
 //
-		// Creazione/Salvataggio Tessere
-		for (int i = 0; i < 5; i++) {
-			LocalDate dataScadenza = LocalDate.now().plusMonths(i + 1);
-			Long codiceTessera = random.nextLong();
-			Tessera tessera = new Tessera(dataScadenza, codiceTessera);
-			ts.salvaTessera(tessera);
-		}
+//		// Creazione/Salvataggio Tessere
+//		for (int i = 0; i < 5; i++) {
+//			LocalDate dataScadenza = LocalDate.now().plusMonths(i + 1);
+//			Long codiceTessera = random.nextLong();
+//			Tessera tessera = new Tessera(dataScadenza, codiceTessera);
+//			ts.salvaTessera(tessera);
+//		}
 //
-		// Creazione/Salvataggio Tratta
-		List<Tratta> tratte = new ArrayList<>();
-		for (int i = 0; i < 5; i++) {
-			String partenza = faker.address().city();
-			String capolinea = faker.address().city();
-			Tratta tratta = new Tratta(partenza, capolinea);
-			tratte.add(tratta);
-			tr.saveTratta(tratta);
-		}
+//		// Creazione/Salvataggio Tratta
+//		List<Tratta> tratte = new ArrayList<>();
+//		for (int i = 0; i < 5; i++) {
+//			String partenza = faker.address().city();
+//			String capolinea = faker.address().city();
+//			Tratta tratta = new Tratta(partenza, capolinea);
+//			tratte.add(tratta);
+//			tr.saveTratta(tratta);
+//		}
 //
-		// Creazione/Salvataggio Officine
-		List<Officina> officineList = new ArrayList<>();
-		for (int i = 0; i < 5; i++) {
-			LocalDate dataInizio = LocalDate.now().plusDays(random.nextInt(30) + 1);
-			LocalDate dataFine = dataInizio.plusDays(random.nextInt(30) + 1);
-			Officina officina = new Officina(dataInizio, dataFine);
-			officineList.add(officina);
-			of.saveOfficina(officina);
-		}
+//		// Creazione/Salvataggio Officine
+//		List<Officina> officineList = new ArrayList<>();
+//		for (int i = 0; i < 5; i++) {
+//			LocalDate dataInizio = LocalDate.now().plusDays(random.nextInt(30) + 1);
+//			LocalDate dataFine = dataInizio.plusDays(random.nextInt(30) + 1);
+//			Officina officina = new Officina(dataInizio, dataFine);
+//			officineList.add(officina);
+//			of.saveOfficina(officina);
+//		}
 //
-		// Creazione/Salvataggio Distributori
-		for (int i = 0; i < 5; i++) {
-			String posizione = faker.address().city();
-			boolean stato = faker.bool().bool();
-			DistributoreAutomatico distributore = new DistributoreAutomatico(posizione, stato);
-			dsa.saveDistributoreAutomatico(distributore);
-		}
+//		// Creazione/Salvataggio Distributori
+//		for (int i = 0; i < 5; i++) {
+//			String posizione = faker.address().city();
+//			boolean stato = faker.bool().bool();
+//			DistributoreAutomatico distributore = new DistributoreAutomatico(posizione, stato);
+//			dsa.saveDistributoreAutomatico(distributore);
+//		}
 //
-		// Creazione/Salvataggio Mezzo
-		List<Mezzo> mezzi = new ArrayList<>();
-
-		for (int i = 0; i < 5; i++) {
-			TipoMezzo tipo = TipoMezzo.values()[random.nextInt(TipoMezzo.values().length)];
-			StatoMezzo stato = StatoMezzo.values()[random.nextInt(StatoMezzo.values().length)];
-			int capienza = random.nextInt(100) + 1;
-			Tratta tratta = tratte.get(random.nextInt(tratte.size()));
-			Officina officina = null;
-
-			if (stato == StatoMezzo.IN_SERVIZIO) {
-				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta);
-				mz.saveMezzo(mezzo);
-				mezzi.add(mezzo);
-			} else {
-				officina = officineList.get(random.nextInt(officineList.size()));
-				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta, officina);
-				mz.saveMezzo(mezzo);
-				mezzi.add(mezzo);
-			}
-		}
+//		// Creazione/Salvataggio Mezzo
+//		List<Mezzo> mezzi = new ArrayList<>();
 //
-		// Creazione/Salvataggio TrattePercorse
-		List<Mezzo> mezziAll = mz.getAllMezzi();
-		List<Tratta> tratteAll = tr.getAllTratte();
-
-		for (int i = 0; i < 5; i++) {
-			long codiceStorico = random.nextLong(1000) + 1;
-			long tempoEffettivo = random.nextLong((long) 200) + 1;
-			Mezzo mezzo = mezziAll.get(random.nextInt(mezziAll.size()));
-			Tratta tratta = tratteAll.get(random.nextInt(tratteAll.size()));
-			TrattePercorse trattePercorse = new TrattePercorse(codiceStorico, tempoEffettivo, mezzo, tratta);
-			mezzo.addTrattePercorse(trattePercorse);
-			tratta.addTrattePercorse(trattePercorse);
-			tpd.save(trattePercorse);
-		}
-
-		// Creazione/Salvataggio Utenti tramite scanner
-		List<Tessera> tessere = ts.getAllTessere();
-		System.out.println();
-		System.err.println(" \n Crea 3 utenti:");
-
-		for (int i = 1; i < 4; i++) {
-			System.out.print("Inserisci il nome dell'utente " + i + " ");
-			String nome = scanner.nextLine();
-
-			System.out.print("Inserisci il cognome dell'utente " + i + " ");
-			String cognome = scanner.nextLine();
-
-			int randomIndex = random.nextInt(tessere.size());
-			Tessera tesseraRecuperataCasualmente = tessere.get(randomIndex);
-			tessere.remove(randomIndex);
-
-			Utente utente = new Utente(nome, cognome, tesseraRecuperataCasualmente);
-			ut.salvaUtente(utente);
-			System.out.println(utente);
-		}
+//		for (int i = 0; i < 5; i++) {
+//			TipoMezzo tipo = TipoMezzo.values()[random.nextInt(TipoMezzo.values().length)];
+//			StatoMezzo stato = StatoMezzo.values()[random.nextInt(StatoMezzo.values().length)];
+//			int capienza = random.nextInt(100) + 1;
+//			Tratta tratta = tratte.get(random.nextInt(tratte.size()));
+//			Officina officina = null;
+//
+//			if (stato == StatoMezzo.IN_SERVIZIO) {
+//				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta);
+//				mz.saveMezzo(mezzo);
+//				mezzi.add(mezzo);
+//			} else {
+//				officina = officineList.get(random.nextInt(officineList.size()));
+//				Mezzo mezzo = new Mezzo(tipo, stato, capienza, tratta, officina);
+//				mz.saveMezzo(mezzo);
+//				mezzi.add(mezzo);
+//			}
+//		}
+//
+//		// Creazione/Salvataggio TrattePercorse
+//		System.out.println();
+//		List<Mezzo> mezziAll = mz.getAllMezzi();
+//		List<Tratta> tratteAll = tr.getAllTratte();
+//
+//		for (int i = 0; i < 5; i++) {
+//			long codiceStorico = random.nextLong(1000) + 1;
+//			long tempoEffettivo = random.nextLong((long) 200) + 1;
+//			Mezzo mezzo = mezziAll.get(random.nextInt(mezziAll.size()));
+//			Tratta tratta = tratteAll.get(random.nextInt(tratteAll.size()));
+//			TrattePercorse trattePercorse = new TrattePercorse(codiceStorico, tempoEffettivo, mezzo, tratta);
+//			mezzo.addTrattePercorse(trattePercorse);
+//			tratta.addTrattePercorse(trattePercorse);
+//			tpd.save(trattePercorse);
+//		}
+//
+//		// Creazione/Salvataggio Utenti tramite scanner
+//		List<Tessera> tessere = ts.getAllTessere();
+//		System.out.println();
+//		System.err.println(" \n Crea 3 utenti:");
+//
+//		for (int i = 1; i < 4; i++) {
+//			System.out.print("Inserisci il nome dell'utente " + i + " ");
+//			String nome = scanner.nextLine();
+//
+//			System.out.print("Inserisci il cognome dell'utente " + i + " ");
+//			String cognome = scanner.nextLine();
+//
+//			int randomIndex = random.nextInt(tessere.size());
+//			Tessera tesseraRecuperataCasualmente = tessere.get(randomIndex);
+//			tessere.remove(randomIndex);
+//
+//			Utente utente = new Utente(nome, cognome, tesseraRecuperataCasualmente);
+//			ut.salvaUtente(utente);
+//			System.out.println(utente);
+//		}
 
 		// Scelta tra Utente e Amministratore
 		System.out.println("\n -----------------------Seleziona il tuo ruolo:-----------------------");
